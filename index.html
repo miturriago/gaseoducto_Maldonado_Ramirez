@@ -6,10 +6,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link rel="stylesheet" href="./css/estilos.css">
     <title>Gaseoducto</title>
 </head>
@@ -20,16 +16,16 @@
             <form action="#">
                 <h1>Crear una Cuenta</h1>
                 <br>
-                <input type="text" placeholder="Representante Legal" />
-                <input type="email" placeholder="Correo Representante Legal" />
-                <input type="number" placeholder="Identificación" />
-                <input type="text" placeholder="Nombre de la Empresa" />
-                <input type="number" placeholder="Teléfono de la Empresa" />
-                <input type="password" placeholder="Contraseña" />
-                <input type="password" placeholder="Repetir contraseña" />
-                <input type="file" placeholder="Imagen de perfil" />
+                <input id="RL" type="text" placeholder="Representante Legal" />
+                <input id="Correo" type="email" placeholder="Correo Representante Legal" />
+                <input id="Id" type="number" placeholder="Identificación" />
+                <input id="NE" type="text" placeholder="Nombre de la Empresa" />
+                <input id="TE" type="number" placeholder="Teléfono de la Empresa" />
+                <input id="Pass" type="password" placeholder="Contraseña" />
+                <input id="VPass" type="password" placeholder="Repetir contraseña" />
+                <input id="img" type="file" placeholder="Imagen de perfil" />
                 <br>
-                <button>Registrarse</button>
+                <button id="save">Registrarse</button>
             </form>
         </div>
         <div class="form-container sign-in-container">
@@ -86,6 +82,53 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-database.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-analytics.js"></script>
+
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+        apiKey: "AIzaSyB4HGvYUZmWH6IF4NTp94I7qqb5k-J_kkQ",
+        authDomain: "gaseoductos-maldonado-ramirez.firebaseapp.com",
+        databaseURL: "https://gaseoductos-maldonado-ramirez.firebaseio.com",
+        projectId: "gaseoductos-maldonado-ramirez",
+        storageBucket: "gaseoductos-maldonado-ramirez.appspot.com",
+        messagingSenderId: "325601344547",
+        appId: "1:325601344547:web:2f570748ca46ec28f68596",
+        measurementId: "G-HXRGKYWB91"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+    </script>
+    <script>
+        const database = firebase.database();
+        const id = document.getElementById('Id');
+        const RepresenLegal=document.getElementById('RL');
+        const Email = document.getElementById('Correo');
+        const NombreEmpresa = document.getElementById('NE');
+        const TelefonoEmpresa = document.getElementById('TE');
+        const Contraseña = document.getElementById('Pass');
+        const vContraseña = document.getElementById('VPass');
+        const imagenPerfil = document.getElementById('img');
+    
+        save.addEventListener('click', () => {
+            database.ref('/empresas/'+ id.value).set({
+                Representante_legal: RepresenLegal.value,
+                Email: Email.value,
+                Nombre_empresa: NombreEmpresa.value,
+                Telefono_Empresa: TelefonoEmpresa.value,
+                Contraseña :Contraseña.value,
+                imagen_perfil:imagenPerfil.value 
+            });
+        });
+    
+    </script>
 </body>
 
 </html>
