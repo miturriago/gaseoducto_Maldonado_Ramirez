@@ -206,5 +206,29 @@
         <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
         <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
         <script src="assets/demo/datatables-demo.js"></script>
+        <!-- The core Firebase JS SDK is always required and must be listed first -->
+        <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-database.js"></script>
+
+        <!-- TODO: Add SDKs for Firebase products that you want to use
+            https://firebase.google.com/docs/web/setup#available-libraries -->
+        <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-analytics.js"></script>
+
+        <script>
+            // Your web app's Firebase configuration
+            var firebaseConfig = {
+            apiKey: "AIzaSyB4HGvYUZmWH6IF4NTp94I7qqb5k-J_kkQ",
+            authDomain: "gaseoductos-maldonado-ramirez.firebaseapp.com",
+            databaseURL: "https://gaseoductos-maldonado-ramirez.firebaseio.com",
+            projectId: "gaseoductos-maldonado-ramirez",
+            storageBucket: "gaseoductos-maldonado-ramirez.appspot.com",
+            messagingSenderId: "325601344547",
+            appId: "1:325601344547:web:2f570748ca46ec28f68596",
+            measurementId: "G-HXRGKYWB91"
+            };
+            // Initialize Firebase
+            firebase.initializeApp(firebaseConfig);
+            firebase.analytics();
+        </script>
     </body>
 </html>
