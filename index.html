@@ -112,7 +112,15 @@
         login.addEventListener('click', (e)=>{
             const ema = document.getElementById('correoen');
             const con = document.getElementById('contraseñaen');
-            firebase.auth().signInWithEmailAndPassword(ema.value, con.value).catch(function(error) {
+            firebase.auth().signInWithEmailAndPassword(ema.value, con.value).then(function(){
+                Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Se ha iniciado sesion exitosamente',
+                showConfirmButton: false,
+                timer: 1500
+                })
+            }).catch(function(error) {
             // Handle Errors here.
             var errorCode = error.code;
             var errorMessage = error.message;
@@ -133,13 +141,13 @@
                     text: 'Correo electronico invalido!'
                     })
                 }else{
-                    Swal.fire({
-                    position: 'top-end',
-                    icon: 'success',
-                    title: 'Se ha iniciado sesion exitosamente',
-                    showConfirmButton: false,
-                    timer: 1500
-                    }) 
+                    if(errorCode=="auth/user-not-found"){
+                        Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Usuario no registrado!'
+                        })
+                    }
                 }
             }
             });
@@ -176,13 +184,29 @@
                                 text: 'La contraseña debe ser al menos de 6 digitos!'
                                 })
                             }else{
-                                
-                                firebase.auth().createUserWithEmailAndPassword(Email.value, Contraseña.value).catch(function(error) {
+                                firebase.auth().createUserWithEmailAndPassword(Email.value, Contraseña.value).then(function(){
+                                    rootRef.child(id.value).set({
+                                        Representante_legal: RepresenLegal.value,
+                                        Email: Email.value,
+                                        Nombre_empresa: NombreEmpresa.value,
+                                        Telefono_Empresa: TelefonoEmpresa.value,
+                                        Contraseña :Contraseña.value,
+                                        imagen_perfil:imagenPerfil.value 
+                                    });
+                                    Swal.fire({
+                                    position: 'top-end',
+                                    icon: 'success',
+                                    title: 'Se ha registrado exitosamente',
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                    }) 
+                                }).catch(function(error) {
                                 // Handle Errors here.
                                 var errorCode = error.code;
                                 var errorMessage = error.message;
                                 console.log(errorCode);
                                 console.log(errorMessage);
+                                // ...
                                 if(errorCode=="auth/invalid-email"){
                                     Swal.fire({
                                     icon: 'error',
@@ -196,26 +220,8 @@
                                         title: 'Lo sentimos...',
                                         text: 'El correo ya se encuentra en uso!'
                                         })
-                                    }else{
-                                        rootRef.child(id.value).set({
-                                            Representante_legal: RepresenLegal.value,
-                                            Email: Email.value,
-                                            Nombre_empresa: NombreEmpresa.value,
-                                            Telefono_Empresa: TelefonoEmpresa.value,
-                                            Contraseña :Contraseña.value,
-                                            imagen_perfil:imagenPerfil.value 
-                                        });
-                                        Swal.fire({
-                                        position: 'top-end',
-                                        icon: 'success',
-                                        title: 'Se ha registrado exitosamente',
-                                        showConfirmButton: false,
-                                        timer: 1500
-                                        })
                                     }
                                 }
-                                
-                                // ...
                                 });
                             }
                         }else{
