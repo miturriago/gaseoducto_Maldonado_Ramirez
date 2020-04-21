@@ -6,6 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <link rel="stylesheet" href="./css/estilos.css">
     <title>Gaseoducto</title>
 </head>
@@ -32,11 +33,11 @@
             <form action="#">
                 <h1>Iniciar Sesión</h1>
                 <br>
-                <input type="email" placeholder="Correo Electrónico" />
-                <input type="password" placeholder="Contraseña" />
+                <input id="correoen" type="email" placeholder="Correo Electrónico" />
+                <input id="contraseñaen" type="password" placeholder="Contraseña" />
                 <a href="#">¿Olvidó su contraseña?</a>
                 <br>
-                <button>Ingresar</button>
+                <button id="login">Ingresar</button>
             </form>
         </div>
         <div class="overlay-container">
@@ -85,6 +86,7 @@
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-auth.js"></script>
 
     <!-- TODO: Add SDKs for Firebase products that you want to use
         https://firebase.google.com/docs/web/setup#available-libraries -->
@@ -107,7 +109,45 @@
         firebase.analytics();
     </script>
     <script>
+        login.addEventListener('click', (e)=>{
+            const ema = document.getElementById('correoen');
+            const con = document.getElementById('contraseñaen');
+            firebase.auth().signInWithEmailAndPassword(ema.value, con.value).catch(function(error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            console.log(errorCode);
+            console.log(errorMessage);
+            // ...
+            if(errorCode=="auth/wrong-password"){
+                Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Contraseña incorrecta!'
+                })
+            }else{
+                if(errorCode=="auth/invalid-email"){
+                    Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Correo electronico invalido!'
+                    })
+                }else{
+                    Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Se ha iniciado sesion exitosamente',
+                    showConfirmButton: false,
+                    timer: 1500
+                    }) 
+                }
+            }
+            });
+        });
+    </script>
+    <script>
         const database = firebase.database();
+        const rootRef =database.ref('empresas');
         const id = document.getElementById('Id');
         const RepresenLegal=document.getElementById('RL');
         const Email = document.getElementById('Correo');
@@ -116,18 +156,85 @@
         const Contraseña = document.getElementById('Pass');
         const vContraseña = document.getElementById('VPass');
         const imagenPerfil = document.getElementById('img');
-    
-        save.addEventListener('click', () => {
-            database.ref('/empresas/'+ id.value).set({
-                Representante_legal: RepresenLegal.value,
-                Email: Email.value,
-                Nombre_empresa: NombreEmpresa.value,
-                Telefono_Empresa: TelefonoEmpresa.value,
-                Contraseña :Contraseña.value,
-                imagen_perfil:imagenPerfil.value 
+        save.addEventListener('click', (e) => {
+            e.preventDefault();
+            rootRef.child(id.value).on('value' , function(snapshot){
+                valor=snapshot.val();
+                if(id.value=="" || RepresenLegal.value=="" || Email.value=="" || NombreEmpresa.value=="" || TelefonoEmpresa.value=="" || Contraseña.value=="" || vContraseña.value=="" || imagenPerfil.value==""){ 
+                    Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Algunos campos se encuentran vacios!'
+                    })
+                }else{
+                    if(valor==null){
+                        if (Contraseña.value == vContraseña.value){
+                            if(Contraseña.value.length<6){
+                                Swal.fire({
+                                icon: 'error',
+                                title: 'Lo sentimos...',
+                                text: 'La contraseña debe ser al menos de 6 digitos!'
+                                })
+                            }else{
+                                
+                                firebase.auth().createUserWithEmailAndPassword(Email.value, Contraseña.value).catch(function(error) {
+                                // Handle Errors here.
+                                var errorCode = error.code;
+                                var errorMessage = error.message;
+                                console.log(errorCode);
+                                console.log(errorMessage);
+                                if(errorCode=="auth/invalid-email"){
+                                    Swal.fire({
+                                    icon: 'error',
+                                    title: 'Lo sentimos...',
+                                    text: 'El correo invalido!'
+                                    })
+                                }else{
+                                    if(errorCode=="auth/email-already-in-use"){
+                                        Swal.fire({
+                                        icon: 'error',
+                                        title: 'Lo sentimos...',
+                                        text: 'El correo ya se encuentra en uso!'
+                                        })
+                                    }else{
+                                        rootRef.child(id.value).set({
+                                            Representante_legal: RepresenLegal.value,
+                                            Email: Email.value,
+                                            Nombre_empresa: NombreEmpresa.value,
+                                            Telefono_Empresa: TelefonoEmpresa.value,
+                                            Contraseña :Contraseña.value,
+                                            imagen_perfil:imagenPerfil.value 
+                                        });
+                                        Swal.fire({
+                                        position: 'top-end',
+                                        icon: 'success',
+                                        title: 'Se ha registrado exitosamente',
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                        })
+                                    }
+                                }
+                                
+                                // ...
+                                });
+                            }
+                        }else{
+                            Swal.fire({
+                            icon: 'error',
+                            title: 'Lo sentimos...',
+                            text: 'Las contraseñas no coinciden!'
+                            })
+                        }
+                    }else{
+                        Swal.fire({
+                        icon: 'error',
+                        title: 'Lo sentimos...',
+                        text: 'Ya se encuentra alguien registrado con el ID inscrito!'
+                        })
+                    }
+                }
             });
         });
-    
     </script>
 </body>
 
