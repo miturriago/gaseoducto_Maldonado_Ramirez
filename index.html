@@ -26,7 +26,7 @@
                 <input id="VPass" type="password" placeholder="Repetir contraseña" />
                 <input id="img" type="file" placeholder="Imagen de perfil" />
                 <br>
-                <button id="save">Registrarse</button>
+                <button type="button" id="save">Registrarse</button>
             </form>
         </div>
         <div class="form-container sign-in-container">
@@ -37,7 +37,7 @@
                 <input id="contraseñaen" type="password" placeholder="Contraseña" />
                 <a href="#">¿Olvidó su contraseña?</a>
                 <br>
-                <button id="login">Ingresar</button>
+                <button type="button" id="login">Ingresar</button>
             </form>
         </div>
         <div class="overlay-container">
@@ -51,7 +51,7 @@
                 <div class="overlay-panel overlay-right">
                     <h1>Hola!</h1>
                     <p>Puedes ingresar tus datos personales y pertenecer a nuestra comunidad</p>
-                    <button class="ghost" id="signUp">Registrarse</button>
+                    <button  class="ghost" id="signUp">Registrarse</button>
                 </div>
             </div>
         </div>
@@ -120,6 +120,8 @@
                 showConfirmButton: false,
                 timer: 1500
                 })
+                window.open('home.html', '_top')
+                
             }).catch(function(error) {
             // Handle Errors here.
             var errorCode = error.code;

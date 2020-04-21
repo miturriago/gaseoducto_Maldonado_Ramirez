@@ -1,6 +1,3 @@
-<!-- 
-* Copyright 2016 Carlos Eduardo Alfaro Orellana
--->
 <!DOCTYPE html>
 <html lang="es">
 
@@ -129,6 +126,43 @@
             <div class="footer-copyright full-reset all-tittles">© 2020 Gaseoducto</div>
         </footer>
     </div>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-auth.js"></script>
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyB4HGvYUZmWH6IF4NTp94I7qqb5k-J_kkQ",
+            authDomain: "gaseoductos-maldonado-ramirez.firebaseapp.com",
+            databaseURL: "https://gaseoductos-maldonado-ramirez.firebaseio.com",
+            projectId: "gaseoductos-maldonado-ramirez",
+            storageBucket: "gaseoductos-maldonado-ramirez.appspot.com",
+            messagingSenderId: "325601344547",
+            appId: "1:325601344547:web:2f570748ca46ec28f68596",
+            measurementId: "G-HXRGKYWB91"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script>
+    <script>
+        firebase.auth().onAuthStateChanged(function (user) {
+            console.log(user)
+            if (user) {
+
+                // User is signed in.
+                var displayName = user.Nombre_empresa;
+                var representante = user.Representante_legal;
+                var email = user.Email;
+                var uid = user.uid;
+
+                // ...
+            } else {
+                // User is signed out.
+                // ...
+            }
+        });
+    </script>
 </body>
 
 </html>
