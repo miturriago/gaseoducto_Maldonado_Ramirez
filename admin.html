@@ -18,6 +18,7 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
     <script src="js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 </head>
 
 <body>
@@ -114,8 +115,9 @@
                 <form autocomplete="off">
                     <div class="row">
                         <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+
                             <div class="group-material">
-                                <input type="text" class="material-control tooltips-general"
+                                <input type="text" id="nombre" class="material-control tooltips-general"
                                     placeholder="Nombre completo" required="" maxlength="70"
                                     pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,70}" data-toggle="tooltip" data-placement="top"
                                     title="Escribe el nombre del operador">
@@ -123,26 +125,26 @@
                                 <span class="bar"></span>
                                 <label>Nombre completo</label>
                             </div>
+                        
                             <div class="group-material">
-                                <input type="text" class="material-control tooltips-general"
-                                    placeholder="Nombre completo" required="" maxlength="70"
-                                    pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,70}" data-toggle="tooltip" data-placement="top"
-                                    title="Escribe la dirección del operador">
+                                <input type="text" id="direccion" class="material-control tooltips-general"
+                                    placeholder="Dirección" required="" maxlength="70" data-toggle="tooltip"
+                                    data-placement="top" title="Escribe la dirección del operador">
                                 <span class="highlight"></span>
                                 <span class="bar"></span>
                                 <label>Dirección</label>
                             </div>
 
                             <div class="group-material">
-                                <input type="email" class="material-control tooltips-general" placeholder="E-mail"
-                                    maxlength="50" data-toggle="tooltip" data-placement="top"
+                                <input type="email" id="email" class="material-control tooltips-general"
+                                    placeholder="E-mail" maxlength="50" data-toggle="tooltip" data-placement="top"
                                     title="Escribe el Email del operador">
                                 <span class="highlight"></span>
                                 <span class="bar"></span>
                                 <label>Email</label>
                             </div>
                             <div class="group-material">
-                                <input type="password" class="material-control tooltips-general"
+                                <input type="password" id="contraseña" class="material-control tooltips-general"
                                     placeholder="Contraseña" required="" maxlength="200" data-toggle="tooltip"
                                     data-placement="top" title="Escribe una contraseña">
                                 <span class="highlight"></span>
@@ -150,7 +152,7 @@
                                 <label>Contraseña</label>
                             </div>
                             <div class="group-material">
-                                <input type="password" class="material-control tooltips-general"
+                                <input type="password" if="vContraseña" class="material-control tooltips-general"
                                     placeholder="Repite la contraseña" required="" maxlength="200" data-toggle="tooltip"
                                     data-placement="top" title="Repite la contraseña">
                                 <span class="highlight"></span>
@@ -159,7 +161,7 @@
                             </div>
                             <p class="text-center">
 
-                                <button type="submit" class="btn btn-primary"><i class="zmdi zmdi-floppy"></i>
+                                <button type="submit" class="btn btn-primary" id="registrarme"><i class="zmdi zmdi-floppy"></i>
                                     &nbsp;&nbsp; Guardar</button>
                             </p>
                         </div>
@@ -189,6 +191,63 @@
             <div class="footer-copyright full-reset all-tittles">© 2020 Gaseoducto</div>
         </footer>
     </div>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-auth.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-analytics.js"></script>
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyB4HGvYUZmWH6IF4NTp94I7qqb5k-J_kkQ",
+            authDomain: "gaseoductos-maldonado-ramirez.firebaseapp.com",
+            databaseURL: "https://gaseoductos-maldonado-ramirez.firebaseio.com",
+            projectId: "gaseoductos-maldonado-ramirez",
+            storageBucket: "gaseoductos-maldonado-ramirez.appspot.com",
+            messagingSenderId: "325601344547",
+            appId: "1:325601344547:web:2f570748ca46ec28f68596",
+            measurementId: "G-HXRGKYWB91"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+    </script>
+    <script>
+        $("#registrarme").click(function() {
+            event.preventDefault();
+            username = $("#email").val();
+            password = $("#contraseña").val();
+            firebase.auth().createUserWithEmailAndPassword(username, password).catch(function(error) {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                console.log(errorCode);
+                console.log(errorMessage);
+            });
+            // autenticacion con firebase
+           
+            firebase.auth().onAuthStateChanged(function(user) {
+                if (user) {
+                    uid = firebase.auth().currentUser.uid;
+                    firebase.database().ref("operadores/" + uid).set({
+                        "nombre": $("#nombre").val(),
+                        "direccion":$("#direccion").val(),
+                        "contraseña":$('#contraseña').val(),
+                        "status": true,
+                        "uid": uid,
+                        
+                    });
+                }
+            });
+            Swal.fire({
+                icon: 'success',
+                title: 'operador registrado, ya puede ingresar',
+            });
+        });
+
+    </script>
 </body>
 
 </html>

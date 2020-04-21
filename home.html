@@ -149,8 +149,6 @@
         firebase.auth().onAuthStateChanged(function (user) {
             console.log(user)
             if (user) {
-
-                // User is signed in.
                 var displayName = user.Nombre_empresa;
                 var representante = user.Representante_legal;
                 var email = user.Email;
