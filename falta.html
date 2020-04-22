@@ -41,17 +41,7 @@
             </div>
             <div class="full-reset nav-lateral-list-menu">
                 <ul class="list-unstyled">
-                    <li>
-                        <div class="dropdown-menu-button"><i class="zmdi zmdi-case zmdi-hc-fw"></i>&nbsp;&nbsp;
-                            opciones <i class="zmdi zmdi-chevron-down pull-right zmdi-hc-fw"></i></div>
-                        <ul class="list-unstyled">
-                            <li><a href="operadores.html"><i
-                                        class="zmdi zmdi-assignment-account zmdi-hc-fw"></i>&nbsp;&nbsp; Ver
-                                    cuestionario</a></li>
-                            <li><a href="resultados.html"><i class="zmdi zmdi-bookmark-outline zmdi-hc-fw"></i>&nbsp;&nbsp;
-                                    Resultados</a></li>
-                        </ul>
-                    </li>
+                 
                 </ul>
             </div>
         </div>
@@ -77,13 +67,18 @@
         </nav>
         <div class="container">
             <div class="page-header">
-                <h1 class="all-tittles">Cuestionario<small>Inicio</small></h1>
+                <h1 class="all-tittles">Cuestionario-Resultados<small>Inicio</small></h1>
             </div>
         </div>
         <section class="full-reset text-center" style="padding: 40px 0;">
             <!--aqui debe mostrarse los resultados del custionario-->
 
-            <div id="myfirstchart" style="height: 500px;">
+            <div>
+                <h1>No disponible</h1>
+                <h3>Si usted esta aqui, puede ser por 2 razones:
+                </h3>
+                <h3>1) trato de acceder al cuestionario y la empresa no lo ha liberado</h3>
+                <h3>2) trato de acceder a los resultados y aun no ha realizado el cuestionario</h3>
             </div>
             
         </section>
@@ -127,36 +122,6 @@
         };
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
-    </script>
-    <script>
-      //aqui debe mandarse los valores de los resultados de las preguntas....
-       
-        db = firebase.database();
-        var empresa = db.ref("respuestas/" + localStorage.uid);
-        empresa.on("value", function (snapshot) {
-            try{
-                buenas = snapshot.val().correctas;
-                erroneas = snapshot.val().malas;
-                imagen = snapshot.val().img_perfil;
-                // se muestra la tabla
-                new Morris.Donut({
-                // ID of the element in which to draw the chart.
-                element: 'myfirstchart',
-                // Chart data records -- each entry in this array corresponds to a point on
-                // the chart.
-                data: [
-                    { label: "Respuestas Correctas", value: buenas },
-                    { label: "Respuestas Incorrectas", value: erroneas }
-                ]
-                });
-            }catch(error){
-                window.location="falta.html";
-            }
-            
-        }, function(error){
-            
-        })
-     
     </script>
     <script>
         nombre_operador = "";

@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="css/jquery.mCustomScrollbar.css">
     <link rel="stylesheet" href="css/style.css">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <script>window.jQuery || document.write('<script src="js/jquery-1.11.2.min.js"><\/script>')</script>
     <script src="js/modernizr.js"></script>
     <script src="js/bootstrap.min.js"></script>
@@ -38,6 +39,17 @@
             <div class="full-reset nav-lateral-list-menu">
                 <ul class="list-unstyled">
                   <!--panel para mostar opciones, vacio por ser un operador-->
+                    <li>
+                        <div class="dropdown-menu-button"><i class="zmdi zmdi-case zmdi-hc-fw"></i>&nbsp;&nbsp;
+                            opciones <i class="zmdi zmdi-chevron-down pull-right zmdi-hc-fw"></i></div>
+                        <ul class="list-unstyled">
+                            <li><a href="operadores.html"><i
+                                        class="zmdi zmdi-assignment-account zmdi-hc-fw"></i>&nbsp;&nbsp; Ver
+                                    cuestionario</a></li>
+                            <li><a href="resultados.html"><i class="zmdi zmdi-bookmark-outline zmdi-hc-fw"></i>&nbsp;&nbsp;
+                                    Resultados</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -70,92 +82,77 @@
             <!--aqui debe ir el cuestionario-->
             <div id="contenedor">
               <div style="background: transparent !important;" class="jumbotron">
-                <h1 class="display-4">Escoja el mejor lenguaje de programacion para usted:</h1>
+                <h1 id="p1" class="display-4"></h1>
                 <hr class="my-4">
                 <div class="btn-group btn-group-vertical" data-toggle="buttons">
-                  <label class="btn btn-light active">
-                    <input type="radio" name="options" id="option1" checked> A. C++
+                  <label class="btn btn-light " id="op11">
+                    <input type="radio" name="options" id="option11" value="off"><h5 id="p1r1"></h5>
                   </label>
-                  <label class="btn btn-light">
-                    <input type="radio" name="options" id="option2"> B. Java
+                  <label class="btn btn-light" id="op12">
+                    <input type="radio" name="options" id="option12" value="off"><h5 id="p1r2"></h5>
                   </label>
-                  <label class="btn btn-light">
-                    <input type="radio" name="options" id="option3"> C. Python
+                  <label class="btn btn-light" id="op13">
+                    <input type="radio" name="options" id="option13" value="off"><h5 id="p1r3"></h5>
                   </label>
-                  <label class="btn btn-light">
-                      <input type="radio" name="options" id="option4"> D. Visual Basic
-                    </label>
               </div>
               </div>
               <div style="background: transparent !important;" class="jumbotron">
-                <h1 class="display-4">¿Qué es un vector?</h1>
+                <h1 id="p2" class="display-4"></h1>
                 <hr class="my-4">
                 <div class="btn-group btn-group-vertical" data-toggle="buttons">
-                  <label class="btn btn-light active">
-                    <input type="radio" name="options" id="option1" checked> A. una zona de almacenamiento contiguo que contiene una serie de elementos del mismo tipo
+                  <label class="btn btn-light " id="op21">
+                    <input type="radio" name="options" id="option21" value="off"><h5 id="p2r1"></h5>
                   </label>
-                  <label class="btn btn-light">
-                    <input type="radio" name="options" id="option2"> B. Una regla
+                  <label class="btn btn-light" id="op22">
+                    <input type="radio" name="options" id="option22" value="off"><h5 id="p2r2"></h5>
                   </label>
-                  <label class="btn btn-light">
-                    <input type="radio" name="options" id="option3"> C. Un segmento de recta que parte desde el origen
+                  <label class="btn btn-light" id="op23">
+                    <input type="radio" name="options" id="option23" value="off"><h5 id="p2r3"></h5>
                   </label>
-                  <label class="btn btn-light">
-                      <input type="radio" name="options" id="option4"> D. Ninguna de las anteriores
-                    </label>
               </div>
               </div>
               <div style="background: transparent !important;" class="jumbotron">
-                <h1 class="display-4">¿Por qué el cielo es azul?</h1>
+                <h1 id="p3" class="display-4"></h1>
                 <hr class="my-4">
                 <div class="btn-group btn-group-vertical"  data-toggle="buttons">
-                  <label class="btn btn-light active">
-                    <input type="radio" name="options" id="option1" checked> A. No sé
+                  <label class="btn btn-light " id="op31">
+                    <input type="radio" name="options" id="option31" value="off"><h5 id="p3r1"></h5>
                   </label>
-                  <label class="btn btn-light">
-                    <input type="radio" name="options" id="option2"> B. No me importa
+                  <label class="btn btn-light" id="op32">
+                    <input type="radio" name="options" id="option32" value="off"><h5 id="p3r2"></h5>
                   </label>
-                  <label class="btn btn-light">
-                    <input type="radio" name="options" id="option3"> C. Es de todos los colores menos azul
+                  <label class="btn btn-light" id="op33">
+                    <input type="radio" name="options" id="option33" value="off"><h5 id="p3r3"></h5>
                   </label>
-                  <label class="btn btn-light">
-                      <input type="radio" name="options" id="option4"> D. Ya valí
-                    </label>
               </div>
               </div>
               <div style="background: transparent !important;" class="jumbotron">
-                <h1 class="display-4">¿Qué es un arbol?</h1>
+                <h1 id="p4"class="display-4"></h1>
                 <hr class="my-4">
                 <div class="btn-group btn-group-vertical" data-toggle="buttons">
-                  <label class="btn btn-light active">
-                    <input type="radio" name="options" id="option1" checked> A. un árbol es un tipo abstracto de datos (TAD) ampliamente usado que imita la estructura jerárquica de un árbol, con un valor en la raíz y subárboles con un nodo padre, representado como un conjunto de nodos enlazados.
+                  <label class="btn btn-light " id="op41">
+                    <input type="radio" name="options" id="option41" value="off"><h5 id="p4r1"></h5>
                   </label>
-                  <label class="btn btn-light">
-                    <input type="radio" name="options" id="option2"> B. algo que sirve
+                  <label class="btn btn-light" id="op42">
+                    <input type="radio" name="options" id="option42" value="off"><h5 id="p4r2"></h5>
                   </label>
-                  <label class="btn btn-light">
-                    <input type="radio" name="options" id="option3"> C. un objeto que da sombra
-                  </label>
-                  <label class="btn btn-light">
-                      <input type="radio" name="options" id="option4"> D. algo para colgar la hamaca
+                  <label class="btn btn-light" id="op43">
+                    <input type="radio" name="options" id="option43" value="off"><h5 id="p4r3"></h5>
                   </label>
                 </div>
               </div>
               <div style="background: transparent !important;" class="jumbotron">
-                <h1 class="display-4">Califiquenos:</h1>
+                <h1 id="p5" class="display-4"></h1>
                 <hr class="my-4">
                 <div class="btn-group btn-group-vertical" data-toggle="buttons">
-                  <label class="btn btn-light active">
-                    <input type="radio" name="options" id="option1" checked> A. 5
+                  <label class="btn btn-light " id="op51">
+                    <input type="radio" name="options" id="option51" value="off"><h5 id="p5r1"></h5>
                   </label>
-                  <label class="btn btn-light">
-                    <input type="radio" name="options" id="option2"> B. 5
+                  <label class="btn btn-light" id="op52">
+                    <input type="radio" name="options" id="option52" value="off"><h5 id="p5r2"></h5>
                   </label>
-                  <label class="btn btn-light">
-                    <input type="radio" name="options" id="option3"> C. 5
-                  </label>
-                  <label class="btn btn-light">
-                      <input type="radio" name="options" id="option4"> D.5
+                  <label class="btn btn-light" id="op53">
+                    <input type="radio" name="options" id="option53" value="off"><h5 id="p5r3"></h5>
                   </label>
               </div>
               <div style="background: transparent !important;" class="jumbotron">
@@ -206,29 +203,269 @@
         firebase.initializeApp(firebaseConfig);
     </script>
     <script>
-      //aqui debe mandarse los valores de las preguntas y respuestas al cuestionario....
+        //eventos para verificar los radiobuton
+        //primer conjunto de botones
+        document.getElementById('op11').addEventListener('click', (e) =>{
+          e.preventDefault();
+          document.getElementById('option11').value="on";
+          document.getElementById('option12').value="off";
+          document.getElementById('option13').value="off";
+        });
+        document.getElementById('op12').addEventListener('click', (e) =>{
+          e.preventDefault();
+          document.getElementById('option11').value="off";
+          document.getElementById('option12').value="on";
+          document.getElementById('option13').value="off";
+        });
+        document.getElementById('op13').addEventListener('click', (e) =>{
+          e.preventDefault();
+          document.getElementById('option11').value="off";
+          document.getElementById('option12').value="off";
+          document.getElementById('option13').value="on";
+        });
+         //segundo conjunto de botones
+         document.getElementById('op21').addEventListener('click', (e) =>{
+          e.preventDefault();
+          document.getElementById('option21').value="on";
+          document.getElementById('option22').value="off";
+          document.getElementById('option23').value="off";
+        });
+        document.getElementById('op22').addEventListener('click', (e) =>{
+          e.preventDefault();
+          document.getElementById('option21').value="off";
+          document.getElementById('option22').value="on";
+          document.getElementById('option23').value="off";
+        });
+        document.getElementById('op23').addEventListener('click', (e) =>{
+          e.preventDefault();
+          document.getElementById('option21').value="off";
+          document.getElementById('option22').value="off";
+          document.getElementById('option23').value="on";
+        });
+         //tercer conjunto de botones
+         document.getElementById('op31').addEventListener('click', (e) =>{
+          e.preventDefault();
+          document.getElementById('option31').value="on";
+          document.getElementById('option32').value="off";
+          document.getElementById('option33').value="off";
+        });
+        document.getElementById('op32').addEventListener('click', (e) =>{
+          e.preventDefault();
+          document.getElementById('option31').value="off";
+          document.getElementById('option32').value="on";
+          document.getElementById('option33').value="off";
+        });
+        document.getElementById('op33').addEventListener('click', (e) =>{
+          e.preventDefault();
+          document.getElementById('option31').value="off";
+          document.getElementById('option32').value="off";
+          document.getElementById('option33').value="on";
+        });
+         //cuarto conjunto de botones
+         document.getElementById('op41').addEventListener('click', (e) =>{
+          e.preventDefault();
+          document.getElementById('option41').value="on";
+          document.getElementById('option42').value="off";
+          document.getElementById('option43').value="off";
+        });
+        document.getElementById('op42').addEventListener('click', (e) =>{
+          e.preventDefault();
+          document.getElementById('option41').value="off";
+          document.getElementById('option42').value="on";
+          document.getElementById('option43').value="off";
+        });
+        document.getElementById('op43').addEventListener('click', (e) =>{
+          e.preventDefault();
+          document.getElementById('option41').value="off";
+          document.getElementById('option42').value="off";
+          document.getElementById('option43').value="on";
+        });
+         //quinto conjunto de botones
+         document.getElementById('op51').addEventListener('click', (e) =>{
+          e.preventDefault();
+          document.getElementById('option51').value="on";
+          document.getElementById('option52').value="off";
+          document.getElementById('option53').value="off";
+        });
+        document.getElementById('op52').addEventListener('click', (e) =>{
+          e.preventDefault();
+          document.getElementById('option51').value="off";
+          document.getElementById('option52').value="on";
+          document.getElementById('option53').value="off";
+        });
+        document.getElementById('op53').addEventListener('click', (e) =>{
+          e.preventDefault();
+          document.getElementById('option51').value="off";
+          document.getElementById('option52').value="off";
+          document.getElementById('option53').value="on";
+        });
 
-    </script>
-    <script>
-      //debe crearse el evento para enviar las respuestas del operador
-      enviar.addEventListener('click', (e) => {
-        e.preventDefault();
-
-
-        //despues de haber guardado todas las respuestas se envia a la pagina de resultados
-        windows.locatio="resultados.html";
-      })
-    </script>
-    <script>
         nombre_operador = "";
         db = firebase.database();
         var operador = db.ref("operadores/" + localStorage.uid);
         operador.on("value", function (snapshot) {
-            nombre_operador = snapshot.val().nombre;
-            //imagen = snapshot.val().img_perfil;
-            //$('#profile').append('<img src="' + imagen + '" class="img-responsive center-box" style="width:55%;">');
-            $("#nombre_operador").html(snapshot.val().nombre);
-        })
+          nombre_operador = snapshot.val().nombre;
+          imagen = snapshot.val().img_perfil;
+          const uide =snapshot.val().empresa;
+          console.log('esta es la empresa ',uide);
+          $('#profile').append('<img src="' + imagen + '" class="img-responsive center-box" style="width:55%;">');
+          $("#nombre_operador").html(snapshot.val().nombre);
+
+          var preguntas = db.ref("preguntas/" + uide);
+          preguntas.on("value",function(snapshot){
+            try{
+              console.log(snapshot.val.pregunta1);
+              //se muestran las preguntas
+              $("#p1").html(snapshot.val().pregunta1);
+              $("#p2").html(snapshot.val().pregunta2);
+              $("#p3").html(snapshot.val().pregunta3);
+              $("#p4").html(snapshot.val().pregunta4);
+              $("#p5").html(snapshot.val().pregunta5);
+              //se muestran las respuestas
+              $("#p1r1").html(snapshot.val().respuesta11);
+              $("#p1r2").html(snapshot.val().respuesta21);
+              $("#p1r3").html(snapshot.val().respuesta31);
+              $("#p2r1").html(snapshot.val().respuesta12);
+              $("#p2r2").html(snapshot.val().respuesta22);
+              $("#p2r3").html(snapshot.val().respuesta32);
+              $("#p3r1").html(snapshot.val().respuesta13);
+              $("#p3r2").html(snapshot.val().respuesta23);
+              $("#p3r3").html(snapshot.val().respuesta33);
+              $("#p4r1").html(snapshot.val().respuesta14);
+              $("#p4r2").html(snapshot.val().respuesta24);
+              $("#p4r3").html(snapshot.val().respuesta34);
+              $("#p5r1").html(snapshot.val().respuesta15);
+              $("#p5r2").html(snapshot.val().respuesta25);
+              $("#p5r3").html(snapshot.val().respuesta35);
+              //se comprueban las respuestas seleccionadas por el operador
+              //debe crearse el evento para enviar las respuestas del operador
+              enviar.addEventListener('click', (e) => {
+                if(document.getElementById('option11').value=="off" && document.getElementById('option12').value=="off" && document.getElementById('option13').value=="off"){
+                  Swal.fire({
+                    icon: 'error',
+                    title: 'Lo sentimos...',
+                    text: 'La Respuesta de la pregunta 1 esta vacia!'
+                  })
+                }else{
+                  if(document.getElementById('option21').value=="off" && document.getElementById('option22').value=="off" && document.getElementById('option23').value=="off"){
+                    Swal.fire({
+                      icon: 'error',
+                      title: 'Lo sentimos...',
+                      text: 'La Respuesta de la pregunta 2 esta vacia!'
+                    })
+                  }else{
+                    if(document.getElementById('option31').value=="off" && document.getElementById('option32').value=="off" && document.getElementById('option33').value=="off"){
+                      Swal.fire({
+                        icon: 'error',
+                        title: 'Lo sentimos...',
+                        text: 'La Respuesta de la pregunta 3 esta vacia!'
+                      })
+                    }else{
+                      if(document.getElementById('option41').value=="off" && document.getElementById('option42').value=="off" && document.getElementById('option43').value=="off"){
+                        Swal.fire({
+                        icon: 'error',
+                        title: 'Lo sentimos...',
+                        text: 'La Respuesta de la pregunta 4 esta vacia!'
+                        })
+                      }else{
+                        if(document.getElementById('option51').value=="off" && document.getElementById('option52').value=="off" && document.getElementById('option53').value=="off"){
+                          Swal.fire({
+                          icon: 'error',
+                          title: 'Lo sentimos...',
+                          text: 'La Respuesta de la pregunta 5 esta vacia!'
+                          })
+                        }else{
+                          e.preventDefault();
+                          let correctas= 0;
+                          //pregunta1
+                          if(document.getElementById('option11').value=="on" && snapshot.val().correcto11=="true"){
+                            correctas=correctas+1;
+                          }else{
+                            if(document.getElementById('option12').value=="on" && snapshot.val().correcto21=="true"){
+                              correctas=correctas+1;
+                            }else{
+                              if(document.getElementById('option13').value=="on" && snapshot.val().correcto31=="true"){
+                                correctas=correctas+1;
+                              }
+                            }
+                          }
+                          //pregunta2
+                          if(document.getElementById('option21').value=="on" && snapshot.val().correcto12=="true"){
+                            correctas=correctas+1;
+                          }else{
+                            if(document.getElementById('option22').value=="on" && snapshot.val().correcto22=="true"){
+                              correctas=correctas+1;
+                            }else{
+                              if(document.getElementById('option23').value=="on" && snapshot.val().correcto32=="true"){
+                                correctas=correctas+1;
+                              }
+                            }
+                          }
+                          //pregunta3
+                          if(document.getElementById('option31').value=="on" && snapshot.val().correcto13=="true"){
+                            correctas=correctas+1;
+                          }else{
+                            if(document.getElementById('option32').value=="on" && snapshot.val().correcto23=="true"){
+                              correctas=correctas+1;
+                            }else{
+                              if(document.getElementById('option33').value=="on" && snapshot.val().correcto33=="true"){
+                                correctas=correctas+1;
+                              }
+                            }
+                          }
+                          //pregunta4
+                          if(document.getElementById('option41').value=="on" && snapshot.val().correcto14=="true"){
+                            correctas=correctas+1;
+                          }else{
+                            if(document.getElementById('option42').value=="on" && snapshot.val().correcto24=="true"){
+                              correctas=correctas+1;
+                            }else{
+                              if(document.getElementById('option43').value=="on" && snapshot.val().correcto34=="true"){
+                                correctas=correctas+1;
+                              }
+                            }
+                          }
+                          //pregunta5
+                          if(document.getElementById('option51').value=="on" && snapshot.val().correcto15=="true"){
+                            correctas=correctas+1;
+                          }else{
+                            if(document.getElementById('option52').value=="on" && snapshot.val().correcto25=="true"){
+                              correctas=correctas+1;
+                            }else{
+                              if(document.getElementById('option53').value=="on" && snapshot.val().correcto35=="true"){
+                                correctas=correctas+1;
+                              }
+                            }
+                          }
+                          let malas=5-correctas;
+                          firebase.database().ref("respuestas/" + localStorage.uid).set({
+                            "empresa": uide,
+                            "correctas": correctas,
+                            "malas":malas
+                          });
+                          Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'se ha completado de manera correcta el cuestionario',
+                            showConfirmButton: false,
+                            timer: 1500
+                          })
+                          //despues de haber guardado todas las respuestas se envia a la pagina de resultados
+                          window.location="resultados.html";
+                        }
+                      }
+                    }
+                  } 
+                }
+              });
+            }catch (error){
+              window.location="falta.html"
+            }
+          }, function(error){
+            //entrara aqui si no hay una encuesta registrada
+            
+          });
+        });
     </script>
 </body>
 </html>

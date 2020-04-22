@@ -158,7 +158,7 @@
                                 <label>Repetir contraseña</label>
                             </div>
                             <div class="group-material">
-                                <input type="file" id="imagen" class="material-control tooltips-general"
+                                <input type="file" id="op" class="material-control tooltips-general"
                                     placeholder="Imagen de perfil" required="" maxlength="70" data-toggle="tooltip"
                                     data-placement="top" title="Imagen de perfil">
                                 <span class="highlight"></span>
@@ -202,6 +202,7 @@
     <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-database.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-storage.js"></script>
 
     <!-- TODO: Add SDKs for Firebase products that you want to use
         https://firebase.google.com/docs/web/setup#available-libraries -->
@@ -236,52 +237,66 @@
             $("#nombre_representante").html(snapshot.val().Representante_legal);
         })
     </script>
-    <script>
-        $("#registrarme").click(function () {
-            event.preventDefault();
-            username = $("#email").val();
-            password = $("#contraseña").val();
-            firebase.auth().createUserWithEmailAndPassword(username, password).then(function () {
-                firebase.auth().signInWithEmailAndPassword(username, password).catch(function (error) {
+    <script> 
+        const file =  document.getElementById('op');
+        file.addEventListener('change', function(e){
+            var filei= e.target.files[0];
+            $("#registrarme").click(function () {
+                event.preventDefault();
+                username = $("#email").val();
+                password = $("#contraseña").val();
+                firebase.auth().createUserWithEmailAndPassword(username, password).then(function () {
+                    firebase.auth().signInWithEmailAndPassword(username, password).catch(function (error) {
+                        var errorCode = error.code;
+                        var errorMessage = error.message;
+                    });
+                    firebase.auth().onAuthStateChanged(function (user) {
+                        if (user) {
+                            uid = firebase.auth().currentUser.uid;
+                            var storageRef = firebase.storage().ref('fotos_operadores/'+ filei.name);
+                            var subir = storageRef.put(filei);
+                            subir.on("state_changed", function(snapshot){
+
+                            },function(error){
+
+                            },function(){
+                                subir.snapshot.ref.getDownloadURL().then(function(downloadURL){
+                                    firebase.database().ref("operadores/" + uid).set({
+                                        "nombre": $("#nombre").val(),
+                                        "email": $("#email").val(),
+                                        "direccion": $("#direccion").val(),
+                                        "status": true,
+                                        "empresa": localStorage.uid,
+                                        "img_perfil": downloadURL
+                                    });
+                                    Swal.fire({
+                                        position: 'top-end',
+                                        icon: 'success',
+                                        title: 'Se ha registrado exitosamente',
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    })
+                                })
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Lo sentimos...',
+                                text: 'No se pudo registrar el usuario!'
+                            })
+                        }
+
+                    });
+                }).catch(function (error) {
+                    // Handle Errors here.
                     var errorCode = error.code;
                     var errorMessage = error.message;
+                    console.log(errorCode);
+                    console.log(errorMessage);
                 });
-                firebase.auth().onAuthStateChanged(function (user) {
-                    if (user) {
-                        uid = firebase.auth().currentUser.uid;
-                        firebase.database().ref("operadores/" + uid).set({
-                            "nombre": $("#nombre").val(),
-                            "email": $("#email").val(),
-                            "direccion": $("#direccion").val(),
-                            "status": true,
-                            "empresa": localStorage.uid,
+            })
 
-                        });
-                        Swal.fire({
-                            position: 'top-end',
-                            icon: 'success',
-                            title: 'Se ha registrado exitosamente',
-                            showConfirmButton: false,
-                            timer: 1500
-                        })
-                    } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Lo sentimos...',
-                            text: 'No se pudo registrar el usuario!'
-                        })
-                    }
-
-                });
-            }).catch(function (error) {
-                // Handle Errors here.
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                console.log(errorCode);
-                console.log(errorMessage);
-            });
         })
-
     </script>
 </body>
 
