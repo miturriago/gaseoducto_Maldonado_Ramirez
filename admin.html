@@ -18,6 +18,7 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
     <script src="js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 </head>
 
 <body>
@@ -34,7 +35,7 @@
                     <img src="assets/img/user01.png" alt="Biblioteca" class="img-responsive center-box"
                         style="width:55%;">
                 </figure>
-                <p class="text-center" style="padding-top: 15px;">nombre empresa</p>
+                <p class="text-center" style="padding-top: 15px;"> <span id="nombre_empresa"></p>
             </div>
             <div class="full-reset nav-lateral-list-menu">
                 <ul class="list-unstyled">
@@ -43,7 +44,7 @@
                         <div class="dropdown-menu-button"><i class="zmdi zmdi-case zmdi-hc-fw"></i>&nbsp;&nbsp;
                             Administración <i class="zmdi zmdi-chevron-down pull-right zmdi-hc-fw"></i></div>
                         <ul class="list-unstyled">
-                            <li><a href="section.html"><i
+                            <li><a href="listadmin.html"><i
                                         class="zmdi zmdi-assignment-account zmdi-hc-fw"></i>&nbsp;&nbsp; Ver
                                     operadores</a></li>
                             <li><a href="catalog.html"><i class="zmdi zmdi-bookmark-outline zmdi-hc-fw"></i>&nbsp;&nbsp;
@@ -80,7 +81,7 @@
                     <img src="assets/img/user01.png" alt="user-picture" class="img-responsive img-circle center-box">
                 </figure>
                 <li style="color:#fff; cursor:default;">
-                    <span class="all-tittles">Admin Name</span>
+                    <span class="all-tittles"><span id="nombre_representante"></span></span>
                 </li>
                 <li class="tooltips-general exit-system-button" data-href="index.html" data-placement="bottom"
                     title="Salir del sistema">
@@ -114,8 +115,9 @@
                 <form autocomplete="off">
                     <div class="row">
                         <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+
                             <div class="group-material">
-                                <input type="text" class="material-control tooltips-general"
+                                <input type="text" id="nombre" class="material-control tooltips-general"
                                     placeholder="Nombre completo" required="" maxlength="70"
                                     pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,70}" data-toggle="tooltip" data-placement="top"
                                     title="Escribe el nombre del operador">
@@ -123,26 +125,26 @@
                                 <span class="bar"></span>
                                 <label>Nombre completo</label>
                             </div>
+
                             <div class="group-material">
-                                <input type="text" class="material-control tooltips-general"
-                                    placeholder="Nombre completo" required="" maxlength="70"
-                                    pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,70}" data-toggle="tooltip" data-placement="top"
-                                    title="Escribe la dirección del operador">
+                                <input type="text" id="direccion" class="material-control tooltips-general"
+                                    placeholder="Dirección" required="" maxlength="70" data-toggle="tooltip"
+                                    data-placement="top" title="Escribe la dirección del operador">
                                 <span class="highlight"></span>
                                 <span class="bar"></span>
                                 <label>Dirección</label>
                             </div>
 
                             <div class="group-material">
-                                <input type="email" class="material-control tooltips-general" placeholder="E-mail"
-                                    maxlength="50" data-toggle="tooltip" data-placement="top"
+                                <input type="email" id="email" class="material-control tooltips-general"
+                                    placeholder="E-mail" maxlength="50" data-toggle="tooltip" data-placement="top"
                                     title="Escribe el Email del operador">
                                 <span class="highlight"></span>
                                 <span class="bar"></span>
                                 <label>Email</label>
                             </div>
                             <div class="group-material">
-                                <input type="password" class="material-control tooltips-general"
+                                <input type="password" id="contraseña" class="material-control tooltips-general"
                                     placeholder="Contraseña" required="" maxlength="200" data-toggle="tooltip"
                                     data-placement="top" title="Escribe una contraseña">
                                 <span class="highlight"></span>
@@ -150,7 +152,7 @@
                                 <label>Contraseña</label>
                             </div>
                             <div class="group-material">
-                                <input type="password" class="material-control tooltips-general"
+                                <input type="password" if="vContraseña" class="material-control tooltips-general"
                                     placeholder="Repite la contraseña" required="" maxlength="200" data-toggle="tooltip"
                                     data-placement="top" title="Repite la contraseña">
                                 <span class="highlight"></span>
@@ -159,7 +161,8 @@
                             </div>
                             <p class="text-center">
 
-                                <button type="submit" class="btn btn-primary"><i class="zmdi zmdi-floppy"></i>
+                                <button type="submit" class="btn btn-primary" id="registrarme"><i
+                                        class="zmdi zmdi-floppy"></i>
                                     &nbsp;&nbsp; Guardar</button>
                             </p>
                         </div>
@@ -189,6 +192,89 @@
             <div class="footer-copyright full-reset all-tittles">© 2020 Gaseoducto</div>
         </footer>
     </div>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-auth.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-analytics.js"></script>
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyB4HGvYUZmWH6IF4NTp94I7qqb5k-J_kkQ",
+            authDomain: "gaseoductos-maldonado-ramirez.firebaseapp.com",
+            databaseURL: "https://gaseoductos-maldonado-ramirez.firebaseio.com",
+            projectId: "gaseoductos-maldonado-ramirez",
+            storageBucket: "gaseoductos-maldonado-ramirez.appspot.com",
+            messagingSenderId: "325601344547",
+            appId: "1:325601344547:web:2f570748ca46ec28f68596",
+            measurementId: "G-HXRGKYWB91"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+    </script>
+    <script>
+        nombre_empresa = "";
+        representante = "";
+        db = firebase.database();
+        var empresa = db.ref("empresas/" + localStorage.uid);
+        empresa.on("value", function (snapshot) {
+            nombre_empresa = snapshot.val().Nombre_empresa;
+            representante = snapshot.val().Representante_legal
+            $("#nombre_empresa").html(snapshot.val().Nombre_empresa);
+            $("#nombre_representante").html(snapshot.val().Representante_legal);
+        })
+    </script>
+    <script>
+        $("#registrarme").click(function () {
+            event.preventDefault();
+            username = $("#email").val();
+            password = $("#contraseña").val();
+            firebase.auth().createUserWithEmailAndPassword(username, password).then(function () {
+                firebase.auth().signInWithEmailAndPassword(username, password).catch(function (error) {
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                });
+                firebase.auth().onAuthStateChanged(function (user) {
+                    if (user) {
+                        uid = firebase.auth().currentUser.uid;
+                        firebase.database().ref("operadores/" + uid).set({
+                            "nombre": $("#nombre").val(),
+                            "email": $("#email").val(),
+                            "direccion": $("#direccion").val(),
+                            "status": true,
+                            "empresa": localStorage.uid,
+
+                        });
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'Se ha registrado exitosamente',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Lo sentimos...',
+                            text: 'No se pudo registrar el usuario!'
+                        })
+                    }
+
+                });
+            }).catch(function (error) {
+                // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                console.log(errorCode);
+                console.log(errorMessage);
+            });
+        })
+
+    </script>
 </body>
 
 </html>
