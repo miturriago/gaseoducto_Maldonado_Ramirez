@@ -34,7 +34,7 @@
                     <img src="assets/img/user01.png" alt="Biblioteca" class="img-responsive center-box"
                         style="width:55%;">
                 </figure>
-                <p class="text-center" style="padding-top: 15px;">nombre empresa</p>
+                <p class="text-center" style="padding-top: 15px;"> <span id="nombre_empresa"></span></p>
             </div>
             <div class="full-reset nav-lateral-list-menu">
                 <ul class="list-unstyled">
@@ -80,7 +80,7 @@
                     <img src="assets/img/user01.png" alt="user-picture" class="img-responsive img-circle center-box">
                 </figure>
                 <li style="color:#fff; cursor:default;">
-                    <span class="all-tittles">Admin Name</span>
+                    <span class="all-tittles"> <span id="nombre_representante"></span></span>
                 </li>
                 <li class="tooltips-general exit-system-button" data-href="index.html" data-placement="bottom"
                     title="Salir del sistema">
@@ -101,7 +101,7 @@
             <article class="tile">
                 <div class="tile-icon full-reset"><i class="zmdi zmdi-face"></i></div>
                 <div class="tile-name all-tittles">Operadores</div>
-                <div class="tile-num full-reset">7</div>
+                <div class="tile-num full-reset"><span id="cant_oper"></div>
             </article>
         </section>
         <footer class="footer full-reset">
@@ -146,20 +146,33 @@
         firebase.initializeApp(firebaseConfig);
     </script>
     <script>
-        firebase.auth().onAuthStateChanged(function (user) {
-            console.log(user)
-            if (user) {
-                var displayName = user.Nombre_empresa;
-                var representante = user.Representante_legal;
-                var email = user.Email;
-                var uid = user.uid;
+        var db = firebase.database();
+        var ref = db.ref("operadores");
+        let cant=0;
 
-                // ...
-            } else {
-                // User is signed out.
-                // ...
+
+        ref.orderByChild("empresa").equalTo(localStorage.uid).on("child_added", function (snapshot) {
+            var d = snapshot.val();
+               
+            {
+                console.log(cant)
+                cant=cant+1;
+                $("#cant_oper").html(cant+"");
             }
         });
+        
+    </script>
+    <script>
+        nombre_empresa = "";
+        representante = "";
+        db = firebase.database();
+        var empresa = db.ref("empresas/" + localStorage.uid);
+        empresa.on("value", function (snapshot) {
+            nombre_empresa = snapshot.val().Nombre_empresa;
+            representante = snapshot.val().Representante_legal
+            $("#nombre_empresa").html(snapshot.val().Nombre_empresa);
+            $("#nombre_representante").html(snapshot.val().Representante_legal);
+        })
     </script>
 </body>
 

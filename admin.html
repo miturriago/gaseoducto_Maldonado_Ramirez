@@ -35,7 +35,7 @@
                     <img src="assets/img/user01.png" alt="Biblioteca" class="img-responsive center-box"
                         style="width:55%;">
                 </figure>
-                <p class="text-center" style="padding-top: 15px;">nombre empresa</p>
+                <p class="text-center" style="padding-top: 15px;"> <span id="nombre_empresa"></p>
             </div>
             <div class="full-reset nav-lateral-list-menu">
                 <ul class="list-unstyled">
@@ -81,7 +81,7 @@
                     <img src="assets/img/user01.png" alt="user-picture" class="img-responsive img-circle center-box">
                 </figure>
                 <li style="color:#fff; cursor:default;">
-                    <span class="all-tittles">Admin Name</span>
+                    <span class="all-tittles"><span id="nombre_representante"></span></span>
                 </li>
                 <li class="tooltips-general exit-system-button" data-href="index.html" data-placement="bottom"
                     title="Salir del sistema">
@@ -125,7 +125,7 @@
                                 <span class="bar"></span>
                                 <label>Nombre completo</label>
                             </div>
-                        
+
                             <div class="group-material">
                                 <input type="text" id="direccion" class="material-control tooltips-general"
                                     placeholder="Dirección" required="" maxlength="70" data-toggle="tooltip"
@@ -161,7 +161,8 @@
                             </div>
                             <p class="text-center">
 
-                                <button type="submit" class="btn btn-primary" id="registrarme"><i class="zmdi zmdi-floppy"></i>
+                                <button type="submit" class="btn btn-primary" id="registrarme"><i
+                                        class="zmdi zmdi-floppy"></i>
                                     &nbsp;&nbsp; Guardar</button>
                             </p>
                         </div>
@@ -216,36 +217,62 @@
         firebase.analytics();
     </script>
     <script>
-        $("#registrarme").click(function() {
+        nombre_empresa = "";
+        representante = "";
+        db = firebase.database();
+        var empresa = db.ref("empresas/" + localStorage.uid);
+        empresa.on("value", function (snapshot) {
+            nombre_empresa = snapshot.val().Nombre_empresa;
+            representante = snapshot.val().Representante_legal
+            $("#nombre_empresa").html(snapshot.val().Nombre_empresa);
+            $("#nombre_representante").html(snapshot.val().Representante_legal);
+        })
+    </script>
+    <script>
+        $("#registrarme").click(function () {
             event.preventDefault();
             username = $("#email").val();
             password = $("#contraseña").val();
-            firebase.auth().createUserWithEmailAndPassword(username, password).catch(function(error) {
+            firebase.auth().createUserWithEmailAndPassword(username, password).then(function () {
+                firebase.auth().signInWithEmailAndPassword(username, password).catch(function (error) {
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                });
+                firebase.auth().onAuthStateChanged(function (user) {
+                    if (user) {
+                        uid = firebase.auth().currentUser.uid;
+                        firebase.database().ref("operadores/" + uid).set({
+                            "nombre": $("#nombre").val(),
+                            "email": $("#email").val(),
+                            "direccion": $("#direccion").val(),
+                            "status": true,
+                            "empresa": localStorage.uid,
+
+                        });
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'Se ha registrado exitosamente',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Lo sentimos...',
+                            text: 'No se pudo registrar el usuario!'
+                        })
+                    }
+
+                });
+            }).catch(function (error) {
+                // Handle Errors here.
                 var errorCode = error.code;
                 var errorMessage = error.message;
                 console.log(errorCode);
                 console.log(errorMessage);
             });
-            // autenticacion con firebase
-           
-            firebase.auth().onAuthStateChanged(function(user) {
-                if (user) {
-                    uid = firebase.auth().currentUser.uid;
-                    firebase.database().ref("operadores/" + uid).set({
-                        "nombre": $("#nombre").val(),
-                        "direccion":$("#direccion").val(),
-                        "contraseña":$('#contraseña').val(),
-                        "status": true,
-                        "uid": uid,
-                        
-                    });
-                }
-            });
-            Swal.fire({
-                icon: 'success',
-                title: 'operador registrado, ya puede ingresar',
-            });
-        });
+        })
 
     </script>
 </body>

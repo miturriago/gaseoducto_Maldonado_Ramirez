@@ -51,7 +51,7 @@
                 <div class="overlay-panel overlay-right">
                     <h1>Hola!</h1>
                     <p>Puedes ingresar tus datos personales y pertenecer a nuestra comunidad</p>
-                    <button  class="ghost" id="signUp">Registrarse</button>
+                    <button class="ghost" id="signUp">Registrarse</button>
                 </div>
             </div>
         </div>
@@ -95,98 +95,98 @@
     <script>
         // Your web app's Firebase configuration
         var firebaseConfig = {
-        apiKey: "AIzaSyB4HGvYUZmWH6IF4NTp94I7qqb5k-J_kkQ",
-        authDomain: "gaseoductos-maldonado-ramirez.firebaseapp.com",
-        databaseURL: "https://gaseoductos-maldonado-ramirez.firebaseio.com",
-        projectId: "gaseoductos-maldonado-ramirez",
-        storageBucket: "gaseoductos-maldonado-ramirez.appspot.com",
-        messagingSenderId: "325601344547",
-        appId: "1:325601344547:web:2f570748ca46ec28f68596",
-        measurementId: "G-HXRGKYWB91"
+            apiKey: "AIzaSyB4HGvYUZmWH6IF4NTp94I7qqb5k-J_kkQ",
+            authDomain: "gaseoductos-maldonado-ramirez.firebaseapp.com",
+            databaseURL: "https://gaseoductos-maldonado-ramirez.firebaseio.com",
+            projectId: "gaseoductos-maldonado-ramirez",
+            storageBucket: "gaseoductos-maldonado-ramirez.appspot.com",
+            messagingSenderId: "325601344547",
+            appId: "1:325601344547:web:2f570748ca46ec28f68596",
+            measurementId: "G-HXRGKYWB91"
         };
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
         firebase.analytics();
     </script>
     <script>
-        login.addEventListener('click', (e)=>{
+        login.addEventListener('click', (e) => {
             const ema = document.getElementById('correoen');
             const con = document.getElementById('contraseñaen');
-            firebase.auth().signInWithEmailAndPassword(ema.value, con.value).then(function(){
-                
-                uid= firebase.auth().currentUser.uid;
+            firebase.auth().signInWithEmailAndPassword(ema.value, con.value).then(function () {
+                localStorage.uid = firebase.auth().currentUser.uid;
+                uid = firebase.auth().currentUser.uid;
                 //empresas
-                firebase.database().ref("empresas/" + uid).on("value", function(snapshot){
-                   try{
-                    nombre = snapshot.val().Nombre_empresa;
-                    console.log(nombre);
-                    window.location = "home.html";
-                   }catch(error){
-                    var errorCode = error.code;
-                    var errorMessage = error.message;
-                    console.log(errorCode);
-                    console.log(errorMessage);
-                   }
+                firebase.database().ref("empresas/" + uid).on("value", function (snapshot) {
+                    try {
+                        nombre = snapshot.val().Nombre_empresa;
+                        console.log(nombre);
+                        window.location = "home.html";
+                    } catch (error) {
+                        var errorCode = error.code;
+                        var errorMessage = error.message;
+                        console.log(errorCode);
+                        console.log(errorMessage);
+                    }
                 });
                 //operadores
-                firebase.database().ref("operadores/" + uid).on("value", function(snapshot){
-                   try{
-                    nombre = snapshot.val().nombre;
-                    console.log(nombre);
-                    window.location = "operadores.html";
-                   }catch(error){
-                    var errorCode = error.code;
-                    var errorMessage = error.message;
-                    console.log(errorCode);
-                    console.log(errorMessage);
-                   }
+                firebase.database().ref("operadores/" + uid).on("value", function (snapshot) {
+                    try {
+                        nombre = snapshot.val().nombre;
+                        console.log(nombre);
+                        window.location = "operadores.html";
+                    } catch (error) {
+                        var errorCode = error.code;
+                        var errorMessage = error.message;
+                        console.log(errorCode);
+                        console.log(errorMessage);
+                    }
                 });
 
                 Swal.fire({
-                position: 'top-end',
-                icon: 'success',
-                title: 'Se ha iniciado sesion exitosamente',
-                showConfirmButton: false,
-                timer: 1500
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Se ha iniciado sesion exitosamente',
+                    showConfirmButton: false,
+                    timer: 1500
                 })
                 //window.open('home.html', '_top')
-                
-            }).catch(function(error) {
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            console.log(errorCode);
-            console.log(errorMessage);
-            // ...
-            if(errorCode=="auth/wrong-password"){
-                Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Contraseña incorrecta!'
-                })
-            }else{
-                if(errorCode=="auth/invalid-email"){
+
+            }).catch(function (error) {
+                // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                console.log(errorCode);
+                console.log(errorMessage);
+                // ...
+                if (errorCode == "auth/wrong-password") {
                     Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Correo electronico invalido!'
-                    })
-                }else{
-                    if(errorCode=="auth/user-not-found"){
-                        Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
-                        text: 'Usuario no registrado!'
+                        text: 'Contraseña incorrecta!'
+                    })
+                } else {
+                    if (errorCode == "auth/invalid-email") {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Correo electronico invalido!'
                         })
+                    } else {
+                        if (errorCode == "auth/user-not-found") {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Usuario no registrado!'
+                            })
+                        }
                     }
                 }
-            }
             });
         });
     </script>
     <script>
         const id = document.getElementById('Id');
-        const RepresenLegal=document.getElementById('RL');
+        const RepresenLegal = document.getElementById('RL');
         const Email = document.getElementById('Correo');
         const NombreEmpresa = document.getElementById('NE');
         const TelefonoEmpresa = document.getElementById('TE');
@@ -195,87 +195,88 @@
         const imagenPerfil = document.getElementById('img');
         save.addEventListener('click', (e) => {
             e.preventDefault();
-            if(id.value=="" || RepresenLegal.value=="" || Email.value=="" || NombreEmpresa.value=="" || TelefonoEmpresa.value=="" || Contraseña.value=="" || vContraseña.value=="" || imagenPerfil.value==""){ 
+            if (id.value == "" || RepresenLegal.value == "" || Email.value == "" || NombreEmpresa.value == "" || TelefonoEmpresa.value == "" || Contraseña.value == "" || vContraseña.value == "" || imagenPerfil.value == "") {
                 Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Algunos campos se encuentran vacios!'
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Algunos campos se encuentran vacios!'
                 })
-            }else{
-                if (Contraseña.value == vContraseña.value){
-                    if(Contraseña.value.length<6){
+            } else {
+                if (Contraseña.value == vContraseña.value) {
+                    if (Contraseña.value.length < 6) {
                         Swal.fire({
-                        icon: 'error',
-                        title: 'Lo sentimos...',
-                        text: 'La contraseña debe ser al menos de 6 digitos!'
+                            icon: 'error',
+                            title: 'Lo sentimos...',
+                            text: 'La contraseña debe ser al menos de 6 digitos!'
                         })
-                    }else{
+                    } else {
                         //aqui va el regsitro
-                        firebase.auth().createUserWithEmailAndPassword(Email.value, Contraseña.value).then(function(){
-                            firebase.auth().signInWithEmailAndPassword(Email.value, Contraseña.value).catch(function(error) {
+                        firebase.auth().createUserWithEmailAndPassword(Email.value, Contraseña.value).then(function () {
+                            firebase.auth().signInWithEmailAndPassword(Email.value, Contraseña.value).catch(function (error) {
                                 var errorCode = error.code;
                                 var errorMessage = error.message;
                             });
-                            firebase.auth().onAuthStateChanged(function(user) {
+                            firebase.auth().onAuthStateChanged(function (user) {
                                 if (user) {
                                     uid = firebase.auth().currentUser.uid;
                                     firebase.database().ref("empresas/" + uid).set({
-                                        "Representante legal": RepresenLegal.value,
+                                        "Representante_legal": RepresenLegal.value,
                                         "Email": Email.value,
                                         "Identificacion": id.value,
                                         "Nombre_empresa": NombreEmpresa.value,
                                         "Telefono_Empresa": TelefonoEmpresa.value,
-                                        "contraseña" : Contraseña.value,
-                                        "img_perfil" : imagenPerfil.value
+                                        "contraseña": Contraseña.value,
+                                        "img_perfil": imagenPerfil.value
                                     });
                                     Swal.fire({
-                                    position: 'top-end',
-                                    icon: 'success',
-                                    title: 'Se ha registrado exitosamente',
-                                    showConfirmButton: false,
-                                    timer: 1500
-                                    }) 
-                                }else{
+                                        position: 'top-end',
+                                        icon: 'success',
+                                        title: 'Se ha registrado exitosamente',
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    })
+                                } else {
                                     Swal.fire({
-                                    icon: 'error',
-                                    title: 'Lo sentimos...',
-                                    text: 'No se pudo registrar el usuario!'
+                                        icon: 'error',
+                                        title: 'Lo sentimos...',
+                                        text: 'No se pudo registrar el usuario!'
                                     })
                                 }
                             });
-                        }).catch(function(error) {
-                        // Handle Errors here.
-                        var errorCode = error.code;
-                        var errorMessage = error.message;
-                        console.log(errorCode);
-                        console.log(errorMessage);
-                        // ...
-                        if(errorCode=="auth/invalid-email"){
-                            Swal.fire({
-                            icon: 'error',
-                            title: 'Lo sentimos...',
-                            text: 'El correo invalido!'
-                            })
-                        }else{
-                            if(errorCode=="auth/email-already-in-use"){
+                        }).catch(function (error) {
+                            // Handle Errors here.
+                            var errorCode = error.code;
+                            var errorMessage = error.message;
+                            console.log(errorCode);
+                            console.log(errorMessage);
+                            // ...
+                            if (errorCode == "auth/invalid-email") {
                                 Swal.fire({
-                                icon: 'error',
-                                title: 'Lo sentimos...',
-                                text: 'El correo ya se encuentra en uso!'
+                                    icon: 'error',
+                                    title: 'Lo sentimos...',
+                                    text: 'El correo invalido!'
                                 })
+                            } else {
+                                if (errorCode == "auth/email-already-in-use") {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Lo sentimos...',
+                                        text: 'El correo ya se encuentra en uso!'
+                                    })
+                                }
                             }
-                        }
                         });
                     }
-                }else{
+                } else {
                     Swal.fire({
-                    icon: 'error',
-                    title: 'Lo sentimos...',
-                    text: 'Las contraseñas no coinciden!'
+                        icon: 'error',
+                        title: 'Lo sentimos...',
+                        text: 'Las contraseñas no coinciden!'
                     })
                 }
             }
         });
     </script>
 </body>
+
 </html>
