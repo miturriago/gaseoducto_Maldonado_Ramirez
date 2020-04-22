@@ -149,7 +149,7 @@
         var ref = db.ref("operadores");
         let cant = 0;
 
-
+        $("#cant_oper").html(0 + "");
         ref.orderByChild("empresa").equalTo(localStorage.uid).on("child_added", function (snapshot) {
             var d = snapshot.val();
 
