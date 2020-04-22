@@ -441,7 +441,8 @@
                           firebase.database().ref("respuestas/" + localStorage.uid).set({
                             "empresa": uide,
                             "correctas": correctas,
-                            "malas":malas
+                            "malas":malas,
+                            "nombre":nombre_operador,
                           });
                           Swal.fire({
                             position: 'top-end',
