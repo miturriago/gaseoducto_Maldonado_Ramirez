@@ -120,8 +120,23 @@
                 firebase.database().ref("empresas/" + uid).on("value", function (snapshot) {
                     try {
                         nombre = snapshot.val().Nombre_empresa;
-                        console.log(nombre);
-                        window.location = "home.html";
+                        firebase.auth().onAuthStateChanged(function(user){
+                            if(user){
+                                var emailVerified = user.emailVerified;
+                                if(emailVerified){
+                                    console.log(nombre);
+                                    window.location = "home.html";
+                                }else{
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Oops...',
+                                        text: 'debe verificar primero su correo electronico!'
+                                    })
+                                }
+                            }else{
+                                console.log("something happend");
+                            }
+                        });
                     } catch (error) {
                         var errorCode = error.code;
                         var errorMessage = error.message;
@@ -133,8 +148,17 @@
                 firebase.database().ref("operadores/" + uid).on("value", function (snapshot) {
                     try {
                         nombre = snapshot.val().nombre;
-                        console.log(nombre);
-                        window.location = "operadores.html";
+                        estado = snapshot.val().status;
+                        if(estado){
+                            console.log(nombre);
+                            window.location = "operadores.html";
+                        }else{
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Usted ha sido deshabilitado por la empresa!'
+                            })
+                        }
                     } catch (error) {
                         var errorCode = error.code;
                         var errorMessage = error.message;
@@ -142,7 +166,6 @@
                         console.log(errorMessage);
                     }
                 });
-
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',
