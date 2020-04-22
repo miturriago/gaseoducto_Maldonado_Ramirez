@@ -35,7 +35,7 @@
                 <br>
                 <input id="correoen" type="email" placeholder="Correo Electrónico" />
                 <input id="contraseñaen" type="password" placeholder="Contraseña" />
-                <a href="#">¿Olvidó su contraseña?</a>
+                <a id="recuperacion">¿Olvidó su contraseña?</a>
                 <br>
                 <button type="button" id="login">Ingresar</button>
             </form>
@@ -184,6 +184,50 @@
         });
     </script>
     <script>
+        //recuperacion de contraseña
+        recuperacion.addEventListener('click', (e)=>{
+            const Email = document.getElementById('correoen');
+            var auth = firebase.auth();
+            if(Email.value==""){
+                Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Campo de correo electronico vacio!'
+                })
+            }else{
+                auth.sendPasswordResetEmail(Email.value).then(function(){
+                    Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Se ha enviado correo de recuperacion correctamente',
+                    showConfirmButton: false,
+                    timer: 1500
+                    }) 
+                }, function(error){
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    console.log(errorCode);
+                    console.log(errorMessage);
+                    if(errorCode=="auth/user-not-found"){
+                        Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'El correo electronico no se encuentra registrado!'
+                        })
+                    }else{
+                        if(errorCode=="auth/invalid-email"){
+                            Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'El correo electronico no es valido!'
+                            })
+                        }
+                    }
+                })
+            }
+        });
+    </script>
+    <script>
         //registrarse
         const id = document.getElementById('Id');
         const RepresenLegal=document.getElementById('RL');
@@ -214,7 +258,14 @@
                         }else{
                             //aqui va el regsitro
                             firebase.auth().createUserWithEmailAndPassword(Email.value, Contraseña.value).then(function(){
-                                firebase.auth().signInWithEmailAndPassword(Email.value, Contraseña.value).catch(function(error) {
+                                firebase.auth().signInWithEmailAndPassword(Email.value, Contraseña.value).then(function(){
+                                    var user= firebase.auth().currentUser;
+                                    user.sendEmailVerification().then(function(){
+                                        //email send
+                                    }).catch(function(error){
+                                        //an error happened
+                                    });
+                                }).catch(function(error) {
                                     var errorCode = error.code;
                                     var errorMessage = error.message;
                                 });
@@ -236,13 +287,12 @@
                                                     "Identificacion": id.value,
                                                     "Nombre_empresa": NombreEmpresa.value,
                                                     "Telefono_Empresa": TelefonoEmpresa.value,
-                                                    "contraseña" : Contraseña.value,
                                                     "img_perfil" : downloadURL
                                                 });
                                                 Swal.fire({
                                                 position: 'top-end',
                                                 icon: 'success',
-                                                title: 'Se ha registrado exitosamente',
+                                                title: 'Se ha registrado exitosamente, hemos enviado un correo de verificacion a su cuenta',
                                                 showConfirmButton: false,
                                                 timer: 1500
                                                 }) 
