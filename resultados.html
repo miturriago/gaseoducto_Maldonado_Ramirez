@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <title>Resultados</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="js/sweet-alert.min.js"></script>
+    <link rel="stylesheet" href="css/sweet-alert.css">
+    <link rel="stylesheet" href="css/material-design-iconic-font.min.css">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/jquery.mCustomScrollbar.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-1.11.2.min.js"><\/script>')</script>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+    <script src="js/modernizr.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="js/main.js"></script>
+</head>
+
+<body>
+    <div class="navbar-lateral full-reset">
+        <div class="visible-xs font-movile-menu mobile-menu-button"></div>
+        <div class="full-reset container-menu-movile custom-scroll-containers">
+            <div class="logo full-reset all-tittles">
+                <i class="visible-xs zmdi zmdi-close pull-left mobile-menu-button"
+                    style="line-height: 55px; cursor: pointer; padding: 0 10px; margin-left: 7px;"></i>
+                gaseoducto
+            </div>
+            <div class="full-reset" style="background-color:#2B3D51; padding: 10px 0; color:#fff;">
+                <figure>
+                    <div id="profile" ></div>
+                </figure>
+                <p class="text-center" style="padding-top: 15px;"> <span id="nombre_operador"></span></p>
+            </div>
+            <div class="full-reset nav-lateral-list-menu">
+                <ul class="list-unstyled">
+                  <!--panel para mostar opciones, vacio por ser un operador-->
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="content-page-container full-reset custom-scroll-containers">
+        <nav class="navbar-user-top full-reset">
+            <ul class="list-unstyled full-reset">
+                <figure>
+                    <img src="assets/img/user01.png" alt="user-picture" class="img-responsive img-circle center-box">
+                </figure>
+                <li style="color:#fff; cursor:default;">
+                    <span class="all-tittles"> <span id="nombre_representante"></span></span>
+                </li>
+                <li class="tooltips-general exit-system-button" data-href="index.html" data-placement="bottom"
+                    title="Salir del sistema">
+                    <i class="zmdi zmdi-power"></i>
+                </li>
+
+                <li class="mobile-menu-button visible-xs" style="float: left !important;">
+                    <i class="zmdi zmdi-menu"></i>
+                </li>
+            </ul>
+        </nav>
+        <div class="container">
+            <div class="page-header">
+                <h1 class="all-tittles">Cuestionario<small>Inicio</small></h1>
+            </div>
+        </div>
+        <section class="full-reset text-center" style="padding: 40px 0;">
+            <!--aqui debe mostrarse los resultados del custionario-->
+            <div id="myfirstchart" style="height: 500px;"></div>
+            
+        </section>
+        <footer class="footer full-reset">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6">
+                        <h4 class="all-tittles">Acerca de</h4>
+                        <p>
+                            Segundo parcial de frontend Universidad del Norte
+                        </p>
+                    </div>
+                    <div class="col-xs-12 col-sm-6">
+                        <h4 class="all-tittles">Desarrolladores</h4>
+                        <ul class="list-unstyled">
+                            <li><i class="zmdi zmdi-check zmdi-hc-fw"></i>&nbsp; Mauricio Maldonado
+                            <li><i class="zmdi zmdi-check zmdi-hc-fw"></i>&nbsp; Kebin Ramirez
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-copyright full-reset all-tittles">© 2020 Gaseoducto</div>
+        </footer>
+    </div>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-auth.js"></script>
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyB4HGvYUZmWH6IF4NTp94I7qqb5k-J_kkQ",
+            authDomain: "gaseoductos-maldonado-ramirez.firebaseapp.com",
+            databaseURL: "https://gaseoductos-maldonado-ramirez.firebaseio.com",
+            projectId: "gaseoductos-maldonado-ramirez",
+            storageBucket: "gaseoductos-maldonado-ramirez.appspot.com",
+            messagingSenderId: "325601344547",
+            appId: "1:325601344547:web:2f570748ca46ec28f68596",
+            measurementId: "G-HXRGKYWB91"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script>
+    <script>
+      //aqui debe mandarse los valores de los resultados de las preguntas....
+      // se muestra la tabla
+      new Morris.Donut({
+        // ID of the element in which to draw the chart.
+        element: 'myfirstchart',
+        // Chart data records -- each entry in this array corresponds to a point on
+        // the chart.
+        data: [
+            { label: "Respuestas Correctas", value: 4 },
+            { label: "Respuestas Incorrectas", value: 1 }
+        ]
+        });
+    </script>
+    <script>
+        nombre_operador = "";
+        db = firebase.database();
+        var operador = db.ref("operadores/" + localStorage.uid);
+        operador.on("value", function (snapshot) {
+            nombre_operador = snapshot.val().nombre;
+            //imagen = snapshot.val().img_perfil;
+            //$('#profile').append('<img src="' + imagen + '" class="img-responsive center-box" style="width:55%;">');
+            $("#nombre_operador").html(snapshot.val().nombre);
+        })
+    </script>
+</body>
+</html>
