@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <title>Empresa</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="js/sweet-alert.min.js"></script>
+    <link rel="stylesheet" href="css/sweet-alert.css">
+    <link rel="stylesheet" href="css/material-design-iconic-font.min.css">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/jquery.mCustomScrollbar.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-1.11.2.min.js"><\/script>')</script>
+    <script src="js/modernizr.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+</head>
+
+<body>
+    <div class="navbar-lateral full-reset">
+        <div class="visible-xs font-movile-menu mobile-menu-button"></div>
+        <div class="full-reset container-menu-movile custom-scroll-containers">
+            <div class="logo full-reset all-tittles">
+                <i class="visible-xs zmdi zmdi-close pull-left mobile-menu-button"
+                    style="line-height: 55px; cursor: pointer; padding: 0 10px; margin-left: 7px;"></i>
+                gaseoducto
+            </div>
+            <div class="full-reset" style="background-color:#2B3D51; padding: 10px 0; color:#fff;">
+                <figure>
+                    <div id="profile"></div>
+                </figure>
+                <p class="text-center" style="padding-top: 15px;"> <span id="nombre_empresa"></p>
+            </div>
+            <div class="full-reset nav-lateral-list-menu">
+                <ul class="list-unstyled">
+                    <li><a href="home.html"><i class="zmdi zmdi-home zmdi-hc-fw"></i>&nbsp;&nbsp; Inicio</a></li>
+                    <li>
+                        <div class="dropdown-menu-button"><i class="zmdi zmdi-case zmdi-hc-fw"></i>&nbsp;&nbsp;
+                            Administración <i class="zmdi zmdi-chevron-down pull-right zmdi-hc-fw"></i></div>
+                        <ul class="list-unstyled">
+                            <li><a href="listadmin.html"><i
+                                        class="zmdi zmdi-assignment-account zmdi-hc-fw"></i>&nbsp;&nbsp; Ver
+                                    operadores</a></li>
+                            <li><a href="catalog.html"><i class="zmdi zmdi-bookmark-outline zmdi-hc-fw"></i>&nbsp;&nbsp;
+                                    Ver historial de resultados</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <div class="dropdown-menu-button"><i class="zmdi zmdi-account-add zmdi-hc-fw"></i>&nbsp;&nbsp;
+                            Registro de operadores <i class="zmdi zmdi-chevron-down pull-right zmdi-hc-fw"></i></div>
+                        <ul class="list-unstyled">
+                            <li><a href="admin.html"><i class="zmdi zmdi-face zmdi-hc-fw"></i>&nbsp;&nbsp; Nuevo
+                                    operador</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <div class="dropdown-menu-button"><i class="zmdi zmdi-assignment-o zmdi-hc-fw"></i>&nbsp;&nbsp;
+                            Cuestionario <i class="zmdi zmdi-chevron-down pull-right zmdi-hc-fw"></i></div>
+                        <ul class="list-unstyled">
+                            <li><a href="cuestionario.html"><i class="zmdi zmdi-book zmdi-hc-fw"></i>&nbsp;&nbsp; Crear
+                                    cuestionario</a></li>
+                        </ul>
+                    </li>
+                    <li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="content-page-container full-reset custom-scroll-containers">
+        <nav class="navbar-user-top full-reset">
+            <ul class="list-unstyled full-reset">
+                <figure>
+                    <img src="assets/img/user01.png" alt="user-picture" class="img-responsive img-circle center-box">
+                </figure>
+                <li style="color:#fff; cursor:default;">
+                    <span class="all-tittles"><span id="nombre_representante"></span></span>
+                </li>
+                <li class="tooltips-general exit-system-button" data-href="index.html" data-placement="bottom"
+                    title="Salir del sistema">
+                    <i class="zmdi zmdi-power"></i>
+                </li>
+
+                <li class="mobile-menu-button visible-xs" style="float: left !important;">
+                    <i class="zmdi zmdi-menu"></i>
+                </li>
+            </ul>
+        </nav>
+        <div class="container">
+            <div class="page-header">
+                <h1 class="all-tittles">Gaseoducto <small>Administración de cuestionario</small></h1>
+            </div>
+        </div>
+
+
+        <div class="container-fluid">
+            <div class="container-flat-form">
+                <div class="title-flat-form title-flat-blue">Crear su encuesta</div>
+                <form autocomplete="off">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+                            <div class="panel-group" id="accordion">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+                                                Pregunta 1</a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse1" class="panel-collapse collapse in">
+                                        <div class="panel-body">
+                                            <br>
+                                            <div class="group-material">
+                                                <textarea class="form-control" rows="5" id="p1"></textarea>
+                                                <span class="highlight"></span>
+                                                <span class="bar"></span>
+
+                                            </div>
+                                            <div class="group-material">
+                                                <input type="text" id="p1r1" class="material-control tooltips-general"
+                                                    placeholder="Respuesta 1" required="" maxlength="70"
+                                                    pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,70}" data-toggle="tooltip"
+                                                    data-placement="top" title="Escribe el nombre del operador">
+                                                <span class="highlight"></span>
+                                                <span class="bar"></span>
+                                                <label>Respuesta 1</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="cp1r1">Correcta:</label>
+                                                <select class="form-control" id="cp1r1">
+                                                    <option>true</option>
+                                                    <option>false</option>
+                                                </select>
+                                            </div>
+                                            <br>
+                                            <div class="group-material">
+                                                <input type="text" id="p1r2" class="material-control tooltips-general"
+                                                    placeholder="Pregunta 2" required="" maxlength="70"
+                                                    pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,70}" data-toggle="tooltip"
+                                                    data-placement="top" title="Escribe el nombre del operador">
+                                                <span class="highlight"></span>
+                                                <span class="bar"></span>
+                                                <label>Respuesta 2</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="cp1r2">Correcta:</label>
+                                                <select class="form-control" id="cp1r2">
+                                                    <option>true</option>
+                                                    <option>false</option>
+                                                </select>
+                                            </div>
+                                            <br>
+                                            <div class="group-material">
+                                                <input type="text" id="p1r3" class="material-control tooltips-general"
+                                                    placeholder="Pregunta 3" required="" maxlength="70"
+                                                    pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,70}" data-toggle="tooltip"
+                                                    data-placement="top" title="Escribe el nombre del operador">
+                                                <span class="highlight"></span>
+                                                <span class="bar"></span>
+                                                <label>Respuesta 3</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="cp1r3">Correcta:</label>
+                                                <select class="form-control" id="cp1r3">
+                                                    <option>true</option>
+                                                    <option>false</option>
+                                                </select>
+                                            </div>
+                                            <br>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+                                                Pregunta 2</a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse2" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            <br>
+                                            <div class="group-material">
+                                                <textarea class="form-control" rows="5" id="p2"></textarea>
+                                                <span class="highlight"></span>
+                                                <span class="bar"></span>
+
+                                            </div>
+                                            <div class="group-material">
+                                                <input type="text" id="p2r1" class="material-control tooltips-general"
+                                                    placeholder="Respuesta 1" required="" maxlength="70"
+                                                    pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,70}" data-toggle="tooltip"
+                                                    data-placement="top" title="Escribe el nombre del operador">
+                                                <span class="highlight"></span>
+                                                <span class="bar"></span>
+                                                <label>Respuesta 1</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="cp2r1">Correcta:</label>
+                                                <select class="form-control" id="cp2r1">
+                                                    <option>true</option>
+                                                    <option>false</option>
+                                                </select>
+                                            </div>
+                                            <br>
+                                            <div class="group-material">
+                                                <input type="text" id="p2r2" class="material-control tooltips-general"
+                                                    placeholder="Respuesta 2" required="" maxlength="70"
+                                                    pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,70}" data-toggle="tooltip"
+                                                    data-placement="top" title="Escribe el nombre del operador">
+                                                <span class="highlight"></span>
+                                                <span class="bar"></span>
+                                                <label>Respuesta 2</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="cp2r2">Correcta:</label>
+                                                <select class="form-control" id="cp2r2">
+                                                    <option>true</option>
+                                                    <option>false</option>
+                                                </select>
+                                            </div>
+                                            <br>
+                                            <div class="group-material">
+                                                <input type="text" id="p2r3" class="material-control tooltips-general"
+                                                    placeholder="Respuesta 3" required="" maxlength="70"
+                                                    pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,70}" data-toggle="tooltip"
+                                                    data-placement="top" title="Escribe el nombre del operador">
+                                                <span class="highlight"></span>
+                                                <span class="bar"></span>
+                                                <label>Respuesta 3</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="cp2r3">Correcta:</label>
+                                                <select class="form-control" id="cp2r3">
+                                                    <option>true</option>
+                                                    <option>false</option>
+                                                </select>
+                                            </div>
+                                            <br>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
+                                                Pregunta 3</a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse3" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            <br>
+                                            <div class="group-material">
+                                                <textarea class="form-control" rows="5" id="p3"></textarea>
+                                                <span class="highlight"></span>
+                                                <span class="bar"></span>
+
+                                            </div>
+                                            <div class="group-material">
+                                                <input type="text" id="p3r1" class="material-control tooltips-general"
+                                                    placeholder="Respuesta 1" required="" maxlength="70"
+                                                    pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,70}" data-toggle="tooltip"
+                                                    data-placement="top" title="Escribe el nombre del operador">
+                                                <span class="highlight"></span>
+                                                <span class="bar"></span>
+                                                <label>Respuesta 1</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="cp3r1">Correcta:</label>
+                                                <select class="form-control" id="cp3r1">
+                                                    <option>true</option>
+                                                    <option>false</option>
+                                                </select>
+                                            </div>
+                                            <br>
+                                            <div class="group-material">
+                                                <input type="text" id="p3r2" class="material-control tooltips-general"
+                                                    placeholder="Respuesta 2" required="" maxlength="70"
+                                                    pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,70}" data-toggle="tooltip"
+                                                    data-placement="top" title="Escribe el nombre del operador">
+                                                <span class="highlight"></span>
+                                                <span class="bar"></span>
+                                                <label>Respuesta 2</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="cp3r2">Correcta:</label>
+                                                <select class="form-control" id="cp3r2">
+                                                    <option>true</option>
+                                                    <option>false</option>
+                                                </select>
+                                            </div>
+                                            <br>
+                                            <div class="group-material">
+                                                <input type="text" id="p3r3" class="material-control tooltips-general"
+                                                    placeholder="Respuesta 3" required="" maxlength="70"
+                                                    pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,70}" data-toggle="tooltip"
+                                                    data-placement="top" title="Escribe el nombre del operador">
+                                                <span class="highlight"></span>
+                                                <span class="bar"></span>
+                                                <label>Respuesta 3</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="cp3r3">Correcta:</label>
+                                                <select class="form-control" id="cp3r3">
+                                                    <option>true</option>
+                                                    <option>false</option>
+                                                </select>
+                                            </div>
+                                            <br>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">
+                                                Pregunta 4</a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse4" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            <br>
+                                            <div class="group-material">
+                                                <textarea class="form-control" rows="5" id="p4"></textarea>
+                                                <span class="highlight"></span>
+                                                <span class="bar"></span>
+
+                                            </div>
+                                            <div class="group-material">
+                                                <input type="text" id="p4r1" class="material-control tooltips-general"
+                                                    placeholder="Respuesta 1" required="" maxlength="70"
+                                                    pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,70}" data-toggle="tooltip"
+                                                    data-placement="top" title="Escribe el nombre del operador">
+                                                <span class="highlight"></span>
+                                                <span class="bar"></span>
+                                                <label>Respuesta 1</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="cp4r1">Correcta:</label>
+                                                <select class="form-control" id="cp4r1">
+                                                    <option>true</option>
+                                                    <option>false</option>
+                                                </select>
+                                            </div>
+                                            <br>
+                                            <div class="group-material">
+                                                <input type="text" id="p4r2" class="material-control tooltips-general"
+                                                    placeholder="Respuesta 2" required="" maxlength="70"
+                                                    pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,70}" data-toggle="tooltip"
+                                                    data-placement="top" title="Escribe el nombre del operador">
+                                                <span class="highlight"></span>
+                                                <span class="bar"></span>
+                                                <label>Respuesta 2</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="cp4r2">Correcta:</label>
+                                                <select class="form-control" id="cp4r2">
+                                                    <option>true</option>
+                                                    <option>false</option>
+                                                </select>
+                                            </div>
+                                            <br>
+                                            <div class="group-material">
+                                                <input type="text" id="p4r3" class="material-control tooltips-general"
+                                                    placeholder="Respuesta 3" required="" maxlength="70"
+                                                    pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,70}" data-toggle="tooltip"
+                                                    data-placement="top" title="Escribe el nombre del operador">
+                                                <span class="highlight"></span>
+                                                <span class="bar"></span>
+                                                <label>Respuesta 3</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="cp4r3">Correcta:</label>
+                                                <select class="form-control" id="cp4r3">
+                                                    <option>true</option>
+                                                    <option>false</option>
+                                                </select>
+                                            </div>
+                                            <br>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">
+                                                Pregunta 5</a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapse5" class="panel-collapse collapse">
+                                        <div class="panel-body">
+                                            <br>
+                                            <div class="group-material">
+                                                <textarea class="form-control" rows="5" id="p5"></textarea>
+                                                <span class="highlight"></span>
+                                                <span class="bar"></span>
+
+                                            </div>
+                                            <div class="group-material">
+                                                <input type="text" id="p5r1" class="material-control tooltips-general"
+                                                    placeholder="Respuesta 1" required="" maxlength="70"
+                                                    pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,70}" data-toggle="tooltip"
+                                                    data-placement="top" title="Escribe el nombre del operador">
+                                                <span class="highlight"></span>
+                                                <span class="bar"></span>
+                                                <label>Respuesta 1</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="cp5r1">Correcta:</label>
+                                                <select class="form-control" id="cp5r1">
+                                                    <option>true</option>
+                                                    <option>false</option>
+                                                </select>
+                                            </div>
+                                            <br>
+                                            <div class="group-material">
+                                                <input type="text" id="p5r2" class="material-control tooltips-general"
+                                                    placeholder="Respuesta 2" required="" maxlength="70"
+                                                    pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,70}" data-toggle="tooltip"
+                                                    data-placement="top" title="Escribe el nombre del operador">
+                                                <span class="highlight"></span>
+                                                <span class="bar"></span>
+                                                <label>Respuesta 2</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="cp5r2">Correcta:</label>
+                                                <select class="form-control" id="cp5r2">
+                                                    <option>true</option>
+                                                    <option>false</option>
+                                                </select>
+                                            </div>
+                                            <br>
+                                            <div class="group-material">
+                                                <input type="text" id="p5r3" class="material-control tooltips-general"
+                                                    placeholder="Respuesta 3" required="" maxlength="70"
+                                                    pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,70}" data-toggle="tooltip"
+                                                    data-placement="top" title="Escribe el nombre del operador">
+                                                <span class="highlight"></span>
+                                                <span class="bar"></span>
+                                                <label>Respuesta 3</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="cp5r3">Correcta:</label>
+                                                <select class="form-control" id="cp5r3">
+                                                    <option>true</option>
+                                                    <option>false</option>
+                                                </select>
+                                            </div>
+                                            <br>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <p class="text-center">
+
+                            <button type="submit" class="btn btn-primary" id="crear"><i class="zmdi zmdi-floppy"></i>
+                                &nbsp;&nbsp; Crear</button>
+                        </p>
+                    </div>
+            </div>
+            </form>
+        </div>
+    </div>
+    <footer class="footer full-reset">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6">
+                    <h4 class="all-tittles">Acerca de</h4>
+                    <p>
+                        Segundo parcial de frontend Universidad del Norte
+                    </p>
+                </div>
+                <div class="col-xs-12 col-sm-6">
+                    <h4 class="all-tittles">Desarrolladores</h4>
+                    <ul class="list-unstyled">
+                        <li><i class="zmdi zmdi-check zmdi-hc-fw"></i>&nbsp; Mauricio Maldonado
+                        <li><i class="zmdi zmdi-check zmdi-hc-fw"></i>&nbsp; Kebin Ramirez
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright full-reset all-tittles">© 2020 Gaseoducto</div>
+    </footer>
+    </div>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-auth.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-analytics.js"></script>
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyB4HGvYUZmWH6IF4NTp94I7qqb5k-J_kkQ",
+            authDomain: "gaseoductos-maldonado-ramirez.firebaseapp.com",
+            databaseURL: "https://gaseoductos-maldonado-ramirez.firebaseio.com",
+            projectId: "gaseoductos-maldonado-ramirez",
+            storageBucket: "gaseoductos-maldonado-ramirez.appspot.com",
+            messagingSenderId: "325601344547",
+            appId: "1:325601344547:web:2f570748ca46ec28f68596",
+            measurementId: "G-HXRGKYWB91"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+    </script>
+    <script>
+        nombre_empresa = "";
+        representante = "";
+        db = firebase.database();
+        var empresa = db.ref("empresas/" + localStorage.uid);
+        empresa.on("value", function (snapshot) {
+            nombre_empresa = snapshot.val().Nombre_empresa;
+            representante = snapshot.val().Representante_legal
+            imagen = snapshot.val().img_perfil;
+            $('#profile').append('<img src="' + imagen + '" class="img-responsive center-box" style="width:55%;">');
+            $("#nombre_empresa").html(snapshot.val().Nombre_empresa);
+            $("#nombre_representante").html(snapshot.val().Representante_legal);
+        })
+    </script>
+    <script>
+        $("#crear").click(function () {
+            event.preventDefault();
+
+            firebase.database().ref("preguntas/" + localStorage.uid).set({
+                "pregunta1": $("#p1").val(),
+                "respuesta11": $("#p1r1").val(),
+                "correcto11": $("#cp1r1").val(),
+                "respuesta21": $("#p1r2").val(),
+                "correcto21": $("#cp1r2").val(),
+                "respuesta31": $("#p1r3").val(),
+                "correcto31": $("#cp1r3").val(),
+
+                "pregunta2": $("#p2").val(),
+                "respuesta12": $("#p2r1").val(),
+                "correcto12": $("#cp2r1").val(),
+                "respuesta22": $("#p2r2").val(),
+                "correcto22": $("#cp2r2").val(),
+                "respuesta32": $("#p2r3").val(),
+                "correcto32": $("#cp2r3").val(),
+
+                "pregunta3": $("#p3").val(),
+                "respuesta13": $("#p3r1").val(),
+                "correcto13": $("#cp3r1").val(),
+                "respuesta23": $("#p3r2").val(),
+                "correcto23": $("#cp3r2").val(),
+                "respuesta33": $("#p3r3").val(),
+                "correcto33": $("#cp3r3").val(),
+
+                "pregunta4": $("#p4").val(),
+                "respuesta14": $("#p4r1").val(),
+                "correcto14": $("#cp4r1").val(),
+                "respuesta24": $("#p4r2").val(),
+                "correcto24": $("#cp4r2").val(),
+                "respuesta34": $("#p4r3").val(),
+                "correcto34": $("#cp4r3").val(),
+
+                "pregunta5": $("#p5").val(),
+                "respuesta15": $("#p5r1").val(),
+                "correcto15": $("#cp5r1").val(),
+                "respuesta25": $("#p5r2").val(),
+                "correcto25": $("#cp5r2").val(),
+                "respuesta35": $("#p5r3").val(),
+                "correcto35": $("#cp5r3").val(),
+            });
+            
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Se ha registrado exitosamente',
+                showConfirmButton: false,
+                timer: 1500
+            })
+        })
+
+    </script>
+</body>
+
+</html>
