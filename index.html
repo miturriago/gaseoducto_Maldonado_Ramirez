@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <link rel="stylesheet" href="./css/estilos.css">
+    <title>Gaseoducto</title>
+</head>
+
+<body>
+    <div class="container" id="container">
+        <div class="form-container sign-up-container">
+            <form action="#">
+                <h1>Crear una Cuenta</h1>
+                <br>
+                <input id="RL" type="text" placeholder="Representante Legal" />
+                <input id="Correo" type="email" placeholder="Correo Representante Legal" />
+                <input id="Id" type="number" placeholder="Identificación" />
+                <input id="NE" type="text" placeholder="Nombre de la Empresa" />
+                <input id="TE" type="number" placeholder="Teléfono de la Empresa" />
+                <input id="Pass" type="password" placeholder="Contraseña" />
+                <input id="VPass" type="password" placeholder="Repetir contraseña" />
+                <input id="img" type="file" placeholder="Imagen de perfil" />
+                <br>
+                <button type="button" id="save">Registrarse</button>
+            </form>
+        </div>
+        <div class="form-container sign-in-container">
+            <form action="#">
+                <h1>Iniciar Sesión</h1>
+                <br>
+                <input id="correoen" type="email" placeholder="Correo Electrónico" />
+                <input id="contraseñaen" type="password" placeholder="Contraseña" />
+                <a id="recuperacion">¿Olvidó su contraseña?</a>
+                <br>
+                <button type="button" id="login">Ingresar</button>
+            </form>
+        </div>
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                    <h1>Hola!</h1>
+                    <p>Puedas iniciar sesión con tu usuario y contraseña,</p>
+                    <h1>Adelante!</h1>
+                    <button class="ghost" id="signIn">Iniciar Sesión</button>
+                </div>
+                <div class="overlay-panel overlay-right">
+                    <h1>Hola!</h1>
+                    <p>Puedes ingresar tus datos personales y pertenecer a nuestra comunidad</p>
+                    <button  class="ghost" id="signUp">Registrarse</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const signUpButton = document.getElementById('signUp');
+        const signInButton = document.getElementById('signIn');
+        const container = document.getElementById('container');
+
+        signUpButton.addEventListener('click', () => {
+            container.classList.add("right-panel-active");
+        });
+
+        signInButton.addEventListener('click', () => {
+            container.classList.remove("right-panel-active");
+        });
+
+    </script>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-storage.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-analytics.js"></script>
+
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+        apiKey: "AIzaSyB4HGvYUZmWH6IF4NTp94I7qqb5k-J_kkQ",
+        authDomain: "gaseoductos-maldonado-ramirez.firebaseapp.com",
+        databaseURL: "https://gaseoductos-maldonado-ramirez.firebaseio.com",
+        projectId: "gaseoductos-maldonado-ramirez",
+        storageBucket: "gaseoductos-maldonado-ramirez.appspot.com",
+        messagingSenderId: "325601344547",
+        appId: "1:325601344547:web:2f570748ca46ec28f68596",
+        measurementId: "G-HXRGKYWB91"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+    </script>
+    <script>
+        login.addEventListener('click', (e)=>{
+            const ema = document.getElementById('correoen');
+            const con = document.getElementById('contraseñaen');
+            firebase.auth().signInWithEmailAndPassword(ema.value, con.value).then(function(){
+                
+                uid= firebase.auth().currentUser.uid;
+                //empresas
+                firebase.database().ref("empresas/" + uid).on("value", function(snapshot){
+                   try{
+                    nombre = snapshot.val().Nombre_empresa;
+                    console.log(nombre);
+                    window.location = "home.html";
+                   }catch(error){
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    console.log(errorCode);
+                    console.log(errorMessage);
+                   }
+                });
+                //operadores
+                firebase.database().ref("operadores/" + uid).on("value", function(snapshot){
+                   try{
+                    nombre = snapshot.val().nombre;
+                    console.log(nombre);
+                    window.location = "operadores.html";
+                   }catch(error){
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    console.log(errorCode);
+                    console.log(errorMessage);
+                   }
+                });
+
+                Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Se ha iniciado sesion exitosamente',
+                showConfirmButton: false,
+                timer: 1500
+                })
+            }).catch(function(error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            console.log(errorCode);
+            console.log(errorMessage);
+            // ...
+            if(errorCode=="auth/wrong-password"){
+                Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Contraseña incorrecta!'
+                })
+            }else{
+                if(errorCode=="auth/invalid-email"){
+                    Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Correo electronico invalido!'
+                    })
+                }else{
+                    if(errorCode=="auth/user-not-found"){
+                        Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Usuario no registrado!'
+                        })
+                    }
+                }
+            }
+            });
+        });
+    </script>
+    <script>
+        //recuperacion de contraseña
+        recuperacion.addEventListener('click', (e)=>{
+            const Email = document.getElementById('correoen');
+            var auth = firebase.auth();
+            if(Email.value==""){
+                Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Campo de correo electronico vacio!'
+                })
+            }else{
+                auth.sendPasswordResetEmail(Email.value).then(function(){
+                    Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Se ha enviado correo de recuperacion correctamente',
+                    showConfirmButton: false,
+                    timer: 1500
+                    }) 
+                }, function(error){
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    console.log(errorCode);
+                    console.log(errorMessage);
+                    if(errorCode=="auth/user-not-found"){
+                        Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'El correo electronico no se encuentra registrado!'
+                        })
+                    }else{
+                        if(errorCode=="auth/invalid-email"){
+                            Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'El correo electronico no es valido!'
+                            })
+                        }
+                    }
+                })
+            }
+        });
+    </script>
+    <script>
+        //registrarse
+        const id = document.getElementById('Id');
+        const RepresenLegal=document.getElementById('RL');
+        const Email = document.getElementById('Correo');
+        const NombreEmpresa = document.getElementById('NE');
+        const TelefonoEmpresa = document.getElementById('TE');
+        const Contraseña = document.getElementById('Pass');
+        const vContraseña = document.getElementById('VPass');
+        const imagenPerfil = document.getElementById('img');//instancia del filechoser
+        imagenPerfil.addEventListener('change', function(e){
+            var file = e.target.files[0];//instancia del archivo seleccionado
+            save.addEventListener('click', (l) => {
+                l.preventDefault();
+                if(id.value=="" || RepresenLegal.value=="" || Email.value=="" || NombreEmpresa.value=="" || TelefonoEmpresa.value=="" || Contraseña.value=="" || vContraseña.value=="" || imagenPerfil.value==""){ 
+                    Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Algunos campos se encuentran vacios!'
+                    })
+                }else{
+                    if (Contraseña.value == vContraseña.value){
+                        if(Contraseña.value.length<6){
+                            Swal.fire({
+                            icon: 'error',
+                            title: 'Lo sentimos...',
+                            text: 'La contraseña debe ser al menos de 6 digitos!'
+                            })
+                        }else{
+                            //aqui va el regsitro
+                            firebase.auth().createUserWithEmailAndPassword(Email.value, Contraseña.value).then(function(){
+                                firebase.auth().signInWithEmailAndPassword(Email.value, Contraseña.value).then(function(){
+                                    var user= firebase.auth().currentUser;
+                                    user.sendEmailVerification().then(function(){
+                                        //email send
+                                    }).catch(function(error){
+                                        //an error happened
+                                    });
+                                }).catch(function(error) {
+                                    var errorCode = error.code;
+                                    var errorMessage = error.message;
+                                });
+                                firebase.auth().onAuthStateChanged(function(user) {
+                                    if (user) {
+                                        uid = firebase.auth().currentUser.uid;
+                                        var storageRef = firebase.storage().ref('fotos_empresas/' + file.name); //direccion de subida del archivo imagen
+                                        var subir = storageRef.put(file);//se sube el archivo imagen
+                                        subir.on("state_changed",function(snapshot){
+
+                                        }, function(error){
+
+                                        },function(){
+                                            subir.snapshot.ref.getDownloadURL().then(function(downloadURL){
+                                                console.log(downloadURL);//se obtiene el link en el que se encuentra la imagen subida
+                                                firebase.database().ref("empresas/" + uid).set({
+                                                    "Representante_legal": RepresenLegal.value,
+                                                    "Email": Email.value,
+                                                    "Identificacion": id.value,
+                                                    "Nombre_empresa": NombreEmpresa.value,
+                                                    "Telefono_Empresa": TelefonoEmpresa.value,
+                                                    "img_perfil" : downloadURL
+                                                });
+                                                Swal.fire({
+                                                position: 'top-end',
+                                                icon: 'success',
+                                                title: 'Se ha registrado exitosamente, hemos enviado un correo de verificacion a su cuenta',
+                                                showConfirmButton: false,
+                                                timer: 1500
+                                                }) 
+                                            });
+                                        });
+                                    }else{
+                                        Swal.fire({
+                                        icon: 'error',
+                                        title: 'Lo sentimos...',
+                                        text: 'No se pudo registrar el usuario!'
+                                        })
+                                    }
+                                });
+                            }).catch(function(error) {
+                            // Handle Errors here.
+                            var errorCode = error.code;
+                            var errorMessage = error.message;
+                            console.log(errorCode);
+                            console.log(errorMessage);
+                            // ...
+                            if(errorCode=="auth/invalid-email"){
+                                Swal.fire({
+                                icon: 'error',
+                                title: 'Lo sentimos...',
+                                text: 'El correo invalido!'
+                                })
+                            }else{
+                                if(errorCode=="auth/email-already-in-use"){
+                                    Swal.fire({
+                                    icon: 'error',
+                                    title: 'Lo sentimos...',
+                                    text: 'El correo ya se encuentra en uso!'
+                                    })
+                                }
+                            }
+                            });
+                        }
+                    }else{
+                        Swal.fire({
+                        icon: 'error',
+                        title: 'Lo sentimos...',
+                        text: 'Las contraseñas no coinciden!'
+                        })
+                    }
+                }
+            });
+        }); 
+    </script>
+</body>
+</html>
