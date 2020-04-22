@@ -32,8 +32,7 @@
             </div>
             <div class="full-reset" style="background-color:#2B3D51; padding: 10px 0; color:#fff;">
                 <figure>
-                    <img src="assets/img/user01.png" alt="Biblioteca" class="img-responsive center-box"
-                        style="width:55%;">
+                    <div id="profile"></div>
                 </figure>
                 <p class="text-center" style="padding-top: 15px;"> <span id="nombre_empresa"></p>
             </div>
@@ -65,7 +64,6 @@
                         <ul class="list-unstyled">
                             <li><a href="#"><i class="zmdi zmdi-book zmdi-hc-fw"></i>&nbsp;&nbsp; Crear
                                     cuestionario</a></li>
-
                         </ul>
                     </li>
                     <li>
@@ -224,6 +222,8 @@
         empresa.on("value", function (snapshot) {
             nombre_empresa = snapshot.val().Nombre_empresa;
             representante = snapshot.val().Representante_legal
+            imagen = snapshot.val().img_perfil;
+            $('#profile').append('<img src="' + imagen + '" class="img-responsive center-box" style="width:55%;">');
             $("#nombre_empresa").html(snapshot.val().Nombre_empresa);
             $("#nombre_representante").html(snapshot.val().Representante_legal);
         })
